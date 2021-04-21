@@ -16,14 +16,14 @@
 	<div class="col-auto" style="width:500px; left:35%; position: absolute;">
 		<form action="form.php" method="post"  >
 					<select class="custom-select custom-select-lg mb-3"  name="category">
-		  				<option  selected>Выберите категорию</option>
+		  				  <option  selected>Выберите категорию</option>
 						  <option value="Спорт">Спорт</option>
 						  <option value="Киберспорт">Киберспорт</option>
 						  <option value="Online games">Online games</option>
 					</select><br>
-			<input type="text" name="firstname" class="form-control" placeholder="Имя"  ><br>
-			<input type="text"  name="lastname" class="form-control" placeholder="Фамилия" ><br>
-			<input type="email"  name="email" class="form-control" placeholder="Укажите E-mail" ><br>
+					<input type="text" name="firstname" class="form-control" placeholder="Имя"  ><br>
+					<input type="text"  name="lastname" class="form-control" placeholder="Фамилия" ><br>
+					<input type="email"  name="email" class="form-control" placeholder="Укажите E-mail" ><br>
 				<div  class="form-check form-check-inline">
 					<label for="contactChoice2" class="form-check-label">Мужчина</label>
 					<input type="radio" class="form-check-input"  name="gender"   value="Мужчина" >
