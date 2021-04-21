@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html>
 
 <head>
-	<title> Тестовое задание </title>
+	<title> Test </title>
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="form.js"></script>
 	<link rel="stylesheet" type="text/css" href="css.css">
@@ -13,42 +11,32 @@
 </head>
 
 <body>
-		
-		<h1>Тестовое задание</h1>
-		<form action="form1.php" method="post" enctype="multipart/form-data">
-			<p><input type="name"  name="name"  placeholder="Введите ФИО" maxlength="40" required></p>
-			<p><input type="email" name="email" placeholder="Введите E-mail" maxlength="30" required></p>
-			<p><input type="date"  name="date"  placeholder="Введите дату рождения" required></p>
-			<p><input type="text"  name="text"  placeholder="Добавить комментарий" maxlength="200" size="50" required></p>
-			<p><input type="submit" name="done" value="Отправить"></p>
+	
+	<br>	
+	<div class="col-auto" style="width:500px; left:35%; position: absolute;">
+		<form action="form.php" method="post"  >
+					<select class="custom-select custom-select-lg mb-3"  name="category">
+		  				<option  selected>Выберите категорию</option>
+						  <option value="Спорт">Спорт</option>
+						  <option value="Киберспорт">Киберспорт</option>
+						  <option value="Online games">Online games</option>
+					</select><br>
+			<input type="text" name="firstname" class="form-control" placeholder="Имя"  ><br>
+			<input type="text"  name="lastname" class="form-control" placeholder="Фамилия" ><br>
+			<input type="email"  name="email" class="form-control" placeholder="Укажите E-mail" ><br>
+				<div  class="form-check form-check-inline">
+					<label for="contactChoice2" class="form-check-label">Мужчина</label>
+					<input type="radio" class="form-check-input"  name="gender"   value="Мужчина" >
+					<label for="contactChoice2" class="form-check-label">Женщина</label>	
+					<input type="radio" class="form-check-input" name="gender" value="Женщина" > 
+				</div><br>
+			<br><input type="text" name="birthDate" class="form-control" placeholder="Укажите возраст" maxlength="200" size="50" ><br>
+			<input type="submit" name="done"  class="btn btn-primary my-1" value="Отправить"><br>
 
-			<div class="result"></div>
-		
-
-<?php 
- 		$dsn = 'mysql:host=***; dbname=test;charset=utf8';
-   		$pdo = new PDO($dsn,'***','***');
-  		DEFINE('SALT', 'd89(S*6sd89(*&fg7^FD&6');
-
-   		echo "<ul>";
-   		$query = $pdo->query("SELECT * FROM `tasks` order by `id` DESC");
-   		
-   		while($row = $query->fetch(PDO::FETCH_OBJ)) {
-   			
-   			$hashSalt = password_hash($row->hash, PASSWORD_BCRYPT, ['salt' => SALT]);
-   			echo '<li><b> Имя: '.$row->name.'</br> E-mail: '.$row->email.'</br> Дата рождения: '.$row->date.'</br> Комментарий: '.$row->text.'</br> Хеш: '.$row->hash.'</br> Хеш Соль: '.$hashSalt.'</b></li>';
-   			//$hash = $row->hash;
-   			//var_dump($hash);
-   			}
-   		echo "</ul>";
+		</form>
+	</div>
 
 
-
-?>
-
-
-</form>
 
 </body>
-
 </html>
