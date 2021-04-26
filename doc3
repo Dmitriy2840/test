@@ -1,0 +1,1375 @@
+<?php
+
+require_once("connect.php");
+
+
+
+	$result = mysqli_query($con1,"SELECT * FROM last_values_from_seventh_block ");
+
+ 					
+			while ($row = mysqli_fetch_assoc($result)) 
+            	{
+ 					$aAd=round($row['Ad_type_A'],1);
+ 					$aVdaf=round($row['Vdaf_type_A'],1);
+ 					$aWr=round($row['Wr_type_A'],1);
+ 					$bAd=round($row['Ad_type_B'],1);
+ 					$bVdaf=round($row['Vdaf_type_B'],1);
+ 					$bWr=round($row['Wr_type_B'],1); 		
+ 				}
+
+
+//SELECT date,sample,type,Ad FROM seventh_block WHERE date>=CURDATE() AND Ad IS NOT NULL   Having type ='A'
+//SELECT type,date,sample,Wr AS ad from seventh_block WHERE date>=CURDATE() AND Wr IS NOT NULL Having type ='A' ORDER BY ad ASC
+
+
+$conn = mysqli_connect("sltes-ctai-sql-1","root", "vortex506", "control-fueldb");
+$con = mysqli_set_charset($conn,'utf8');
+if (!$conn) {
+      die("Ошибка в подключении: " . mysqli_connect_error());
+}
+
+ $result  = $conn->query("SELECT * FROM `bsu` order by `created_at` DESC limit 1");
+
+ 		while ($row = mysqli_fetch_assoc($result)) 
+            {
+ 			$Ad1=round($row['Ad1'],1);
+ 			$Ad2=round($row['Ad2'],1);
+ 			$Ad3=round($row['Ad3'],1);
+ 			$Ad4=round($row['Ad4'],1);
+ 			$Ad5=round($row['Ad5'],1);
+ 			$Ad6=round($row['Ad6'],1);
+ 			$Vdaf1=round($row['Vdaf1'],1);
+ 			$Vdaf2=round($row['Vdaf2'],1);
+ 			$Vdaf3=round($row['Vdaf3'],1);
+ 			$Vdaf4=round($row['Vdaf4'],1);
+ 			$Vdaf5=round($row['Vdaf5'],1);
+ 			$Vdaf6=round($row['Vdaf6'],1);
+ 			$Wr1=round($row['Wr1'],1);
+ 			$Wr2=round($row['Wr2'],1);
+ 			$Wr3=round($row['Wr3'],1);
+ 			$Wr4=round($row['Wr4'],1);
+ 			$Wr5=round($row['Wr5'],1);
+ 			$Wr6=round($row['Wr6'],1);
+ 			$smes1=$row['smes1'];
+ 			$smes2=$row['smes2'];
+ 			$smes3=$row['smes3'];
+ 			$smes4=$row['smes4'];
+ 			$smes5=$row['smes5'];
+ 			$smes6=$row['smes6'];
+ 			}                
+
+$connect = mysqli_connect("sltes-ctai-sql-1","root", "vortex506", "openscada");
+if (!$connect) {
+      die("Ошибка в подключении: " . mysqli_connect_error());
+}
+
+ $result  = mysqli_query($connect,"SELECT * FROM `DBAVl_ppc_<GRP>` order by `TM` DESC limit 1");
+
+ 		while ($row = mysqli_fetch_assoc($result)) 
+            {
+ 				$P7A = round($row['t1_P7A'],1);
+ 				$P7B = round($row['t1_P7B'],1);
+
+ 				$lna = round($row['tbyn_t1']);
+ 				$lva = round($row['tbyn_t2']);
+ 				$pna = round($row['tbyn_t3']);
+ 				$pva = round($row['tbyn_t4']);
+ 				$lnb = round($row['tbyn_t5']);
+ 				$lvb = round($row['tbyn_t6']);
+ 				$pnb = round($row['tbyn_t7']);
+ 				$pvb = round($row['tbyn_t8']);
+ 				$trou3 = round($row['d21_t1']);
+ 				$prou3 = round($row['d22_t1']);
+ 				$tpps3 = round($row['d21_t2']);
+
+ 				$percentage_bp2 = round($row['d22_t2'],1);
+
+ 				$d25_1 = round($row['d25_t1'],0);
+ 				$d25_2 = round($row['d25_t2'],0);
+ 				$d25_3 = round($row['d25_t3'],0);
+ 				$d25_4 = round($row['d25_t4'],0);
+ 				$d25_5 = round($row['d25_t5'],0);
+ 				$d25_6 = round($row['d25_t6'],0);
+ 				$d25_7 = round($row['d25_t7'],0);
+ 				$d25_8 = round($row['d25_t8'],0);
+
+ 				$d26_1 = round($row['d26_t1'],0);
+ 				$d26_2 = round($row['d26_t2'],0);
+ 				$d26_3 = round($row['d26_t3'],0);
+ 				$d26_4 = round($row['d26_t4'],0);
+ 				$d26_5 = round($row['d26_t5'],0);
+ 				$d26_6 = round($row['d26_t6'],0);
+
+ 				$d27_1 = round($row['d27_t1'],0);
+ 				$d27_2 = round($row['d27_t2'],0);
+ 				$d27_3 = round($row['d27_t3'],0);
+ 				$d27_4 = round($row['d27_t4'],0);
+ 				$d27_5 = round($row['d27_t5'],0);
+ 				$d27_6 = round($row['d27_t6'],0);
+ 				$d27_7 = round($row['d27_t7'],0);
+ 				$d27_8 = round($row['d27_t8'],0);
+ 				$d27_9 = round($row['d27_t9'],0);
+ 				$d27_10 = round($row['d27_t10'],0);
+
+ 				$d28_1 = round($row['d28_t1'],0);
+ 				$d28_2 = round($row['d28_t2'],0);
+ 				$d28_3 = round($row['d28_t3'],0);
+ 				$d28_4 = round($row['d28_t4'],0);
+ 				$d28_5 = round($row['d28_t5'],0);
+ 				$d28_6 = round($row['d28_t6'],0);
+ 				$d28_7 = round($row['d28_t7'],0);
+ 				$d28_8 = round($row['d28_t8'],0);
+ 				
+ 				
+ 				$d32_1 = round($row['d32_t1'],0);
+ 				$d32_2 = round($row['d32_t2'],0);
+ 				$d32_3 = round($row['d32_t3'],0);
+ 				$d32_4 = round($row['d32_t4'],0);
+ 				$d32_5 = round($row['d32_t5'],0);
+ 				$d32_6 = round($row['d32_t6'],0);
+ 				$d32_7 = round($row['d32_t7'],0);
+ 				$d32_8 = round($row['d32_t8'],0);
+ 				$d32_9 = round($row['d32_t9'],0);
+ 				$d32_10 = round($row['d32_t10'],0);
+ 				$d32_11 = round($row['d32_t11'],0);
+ 				$d32_12 = round($row['d32_t12'],0);
+
+ 				$d33_1 = round($row['d33_t1'],0);
+ 				$d33_2 = round($row['d33_t2'],0);
+ 				$d33_3 = round($row['d33_t3'],0);
+ 				$d33_4 = round($row['d33_t4'],0);
+ 				$d33_5 = round($row['d33_t5'],0);
+ 				$d33_6 = round($row['d33_t6'],0);
+ 				$d33_7 = round($row['d33_t7'],0);
+ 				$d33_8 = round($row['d33_t8'],0);
+ 				$d33_9 = round($row['d33_t9'],0);
+ 				$d33_10 = round($row['d33_t10'],0);
+ 				$d33_11 = round($row['d33_t11'],0);
+ 				$d33_12 = round($row['d33_t12'],0);
+
+ 				$d34_1 = round($row['d34_t1'],0);
+ 				$d34_2 = round($row['d34_t2'],0);
+ 				$d34_3 = round($row['d34_t3'],0);
+ 				$d34_4 = round($row['d34_t4'],0);
+ 				$d34_5 = round($row['d34_t5'],0);
+ 				$d34_6 = round($row['d34_t6'],0);
+ 				$d34_7 = round($row['d34_t7'],0);
+ 				$d34_8 = round($row['d34_t8'],0);
+ 				$d34_9 = round($row['d34_t9'],0);
+ 				$d34_10 = round($row['d34_t10'],0);
+ 			}                
+
+
+
+
+
+//////////////////// Функция Задвижек
+ 		
+function onOff($x,$y) {
+	if ($x == 1 && $y == 0) return 1;
+		elseif ($x == 0 && $y == 1) return 0;
+		else return 2;
+}
+
+///////////////////   PVN 11 & 12!
+
+
+
+	function pvn($pvn)
+	{
+		   if ($pvn == 1) return '#7FFF00';
+                    elseif ($pvn == 0 ) return '#D3D3D3';
+                    else return 'red';
+	}
+
+    function sector1($pvn,$a,$f,$b)
+    {
+           if ($pvn == 1 && $a==0 && $f==0) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+           		elseif ($a==1 && $b==1) return 'rgb(255,128,0)';
+           		elseif ($a==1 && $f==1) return 'rgb(255,128,0)';	
+          		elseif ($a==1) return 'rgb(255,128,0)';
+          		elseif ($f==1) return 'rgb(0,0,255)';
+           		elseif ($a==0 && $f==0) return '#D3D3D3';
+           		else return 'red';
+    }
+
+
+	function sector2($a,$f,$b,$c)
+	{
+           if  ($a==1 && $c==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2"/>';
+           		elseif ($a==1 && $f==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2"/>';
+           		elseif ($a==1) return 'rgb(255,128,0)';
+                elseif ($a==0 && $f==1) return '#D3D3D3';
+                elseif ($a==0 && $f==0) return '#D3D3D3';
+                elseif ($a==1 && $f==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2"/>';
+                elseif ($a==1 && $b==1) return 'rgb(255,128,0)';
+                else return 'red';
+   	}
+
+    function sector3($a,$c,$b)
+    {
+    	   if ($a == 0 && $b==1) return 'rgb(255,128,0)';
+       		    elseif ($a == 1 && $b==0) return '#D3D3D3';		
+                elseif ($a == 1 && $c == 0) return 'rgb(255,128,0)';
+                elseif ($c == 1 && $b==0) return '#D3D3D3';
+                elseif ($c == 1 && $a == 0) return 'rgb(255,128,0)';
+                elseif ($a == 0 && $b==0 && $c==0) return '#D3D3D3';
+                elseif ($b==1) return 'rgb(255,128,0)';
+                else return 'red';
+    					
+   	}
+
+
+$pvn12 = 0;
+$pvn11 = 0;
+$a = onOff($d28_7,$d28_8);;
+$b = onOff($d33_11,$d33_12);
+$c = onOff($d27_9,$d27_10);
+$d = onOff($d27_7,$d27_8);
+$e = onOff($d34_9,$d34_10);
+$f = onOff($d28_5,$d28_6);
+
+
+	function sector4($pvn,$c,$d,$a,$b)
+	{
+           if ($pvn == 1 && $c==1 && $a==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($pvn == 1 && $c==0 && $d==0) return '#D3D3D3';
+                elseif ($c==1 && $d==0 && $b==0 && $a==0) return 'rgb(255,128,0)';
+                elseif ($c==1 && $d==0 && $a==0) return 'rgb(255,128,0)';
+                elseif ($c==0 && $d==1) return '#D3D3D3';
+                elseif ($c==1 && $d==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($c==1 && $d==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($c==1 && $a==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($c==1) return 'rgb(255,128,0)';
+                elseif ($pvn == 0 && $c==0) return '#D3D3D3';
+                else return 'red';
+	}		
+                
+    function sector5($pvn,$c,$d)
+    {
+           if ($pvn == 1 && $c==0 && $d==0) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($c==0 && $d==1) return 'rgb(0,0,255)';
+                elseif ($c==1 && $d==0) return 'rgb(255,128,0)';
+                elseif ($d==1 && $c == 1) return 'rgb(255,128,0)';
+                elseif ($c==1 && $d==0) return 'rgb(255,128,0)';
+                elseif ($c == 0 && $d == 0) return '#D3D3D3';
+                else return 'red';
+ 	}              				
+
+    function sector6($c,$d)
+    {
+           if ($d==0 && $c==0) return '#D3D3D3';
+                elseif ($d==0 && $c==1) return '#D3D3D3';
+                elseif ($d==0 && $c==1) return '#D3D3D3';
+                elseif ($c==0 && $d==0) return '#D3D3D3';
+                elseif ($c==1 && $d==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($c == 0 && $d==1) return 'rgb(0,0,255)';
+                else return 'red';
+ 	}
+
+    function sector7($d,$f,$e)
+    {
+    	   if ($d == 0 && $e==1 && $f==0) return 'rgb(0,0,255)';
+        	    elseif ($d == 1 && $e==0) return '#D3D3D3';		
+                elseif ($d == 1 && $f == 1 && $e == 1) return 'rgb(0,0,255)';
+                elseif ($d == 1 && $e==1 && $f==0) return 'rgb(0,0,255)';
+                elseif ($d == 0 && $e==0 && $f==0) return '#D3D3D3';
+                elseif ($d == 1 && $f == 0) return '(rgb(0,0,255))';
+                elseif ($f == 1 && $e==0) return '#D3D3D3';
+                elseif ($f == 1 && $d == 0) return 'rgb(0,0,255)';
+                else return 'red';
+    					
+  	}
+
+    function sector8($a,$b,$f,$e)
+    {
+           if ($a==1 && $f==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($a==0 && $f==0) return '#D3D3D3';
+                elseif ($f==1 && $a==0 && $e==1) return 'rgb(0,0,255)';
+                elseif ($f==1 && $a==0 && $e==0) return 'rgb(0,0,255)';
+                elseif ($f==0 && $a==1) return '#D3D3D3';
+                elseif ($f==1 && $a==1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+                elseif ($f==0) return '#D3D3D3';
+                else return 'red';
+
+    }
+
+/////////////////// PVN 1      !!!!!!
+
+$pvn1 = 0;
+$a1 = onOff($d25_1,$d25_2);
+$b1 = onOff($d32_3,$d32_4);
+$c1 = onOff($d32_1,$d32_2);
+$d1 = onOff($d34_1,$d34_2);
+
+	function sector9($a1,$b1,$c1)
+	{
+		if ($a1 == 1 && $b1 == 1) return 'rgb(255,128,0)';
+			elseif ($a1 == 1 && $b1 == 0 && $c1 == 1) return 'rgb(0,0,255)';
+			elseif ($a1 == 1 && $b1 == 0 && $c1 == 0)return 'rgb(255,128,0)';
+			elseif ($a1 == 0)return '#D3D3D3';
+			else return 'red';
+			
+	}
+
+	function sector10($a1,$b1,$c1)
+	{
+		if ($a1 == 1 && $b1 == 1 && $c1 == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($c1 == 1 && $b1 == 1 ) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($a1 == 1 && $b1 == 1 && $c1 == 0) return 'rgb(255,128,0)';
+			elseif ($a1 == 1 && $b1 == 0 && $c1 == 1) return '#D3D3D3';
+			elseif ($a1 == 1 && $b1 == 0 ) return '#D3D3D3';
+			elseif ($a1 == 0 && $b1 == 0 ) return '#D3D3D3';
+			elseif ($a1 == 0 && $b1 == 1 ) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector11($a1,$b1,$c1,$d1)
+	{
+		if ($a1 == 1 && $b1 == 1 && $c1 == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($c1 == 1 && $d1 == 1 ) return 'rgb(0,0,255)';
+			elseif ($c1 == 0 && $d1 == 0 ) return '#D3D3D3';
+			elseif ($c1 == 0 && $d1 == 1 ) return '#D3D3D3';
+			elseif ($c1 == 1 && $b1 == 1 ) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($c1 == 1 && $d1 == 0 ) return 'rgb(0,0,255)';
+			else return 'red';
+	}
+
+	function sector41($d1)
+	{
+		if ($d1 == 1 ) return 'rgb(0,0,255)';
+			elseif ($d1 == 0 ) return '#D3D3D3';
+			else return 'red';
+	}
+
+/////////////////// PVN 2      !!!!!!
+
+$pvn2 = 0;
+$x1 = onOff($d25_3,$d25_4);
+$y1 = onOff($d34_3,$d34_4);
+	
+	function sector12($x1, $y1)
+	{
+		if ($x1 == 1)  return 'rgb(0,0,255)';
+			elseif ($x1 == 0 && $y1 == 1)	return '#D3D3D3';
+			elseif ($x1 == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+	function sector13($x1, $y1)
+	{
+		if ($y1 == 1)  return 'rgb(0,0,255)';
+			elseif ($y1 == 0 && $x1 == 1)	return '#D3D3D3';
+			elseif ($y1 == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+/////////////////// PVN 3 & 5      !!!!!!
+
+$pvn5 = 0;
+$pvn3 = 0;
+$x = onOff($d26_3,$d26_4);
+$y = onOff($d33_1,$d33_2);
+$z = onOff($d26_1,$d26_2);
+$w = onOff($d32_5,$d32_6);
+$t = onOff($d32_7,$d32_8);
+$s = onOff($d25_5,$d25_6);
+$v = onOff($d34_5,$d34_6);
+
+	function sector14($x,$y,$z,$w,$t)
+	{
+		if ($x == 1 && $y == 1)  return 'rgb(255,128,0)';
+			elseif ($x == 0 && $y == 1)	return '#D3D3D3';
+			elseif ($x == 1 && $z == 1 && $w == 1 && $t == 1) return 'rgb(255,128,0)';
+			elseif ($x == 1 && $z == 1 && $w == 1) return 'rgb(0,0,255)';
+			elseif ($x == 1 && $z == 1 && $t == 1) return 'rgb(255,128,0)';
+			elseif ($x == 1 && $y == 0)	return 'rgb(255,128,0)';
+			elseif ($x == 0) return '#D3D3D3';
+	}
+
+	function sector15($x,$y,$z)
+	{
+		if ($y == 1 && $x == 1 && $z == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+		    elseif ($y == 1 && $x == 1 && $z == 0)	return 'rgb(255,128,0)';
+			elseif ($y == 0 && $x == 1 && $z == 1)	return '#D3D3D3';
+			elseif ($y == 0 && $x == 1)	return '#D3D3D3';
+			elseif ($y == 0) return '#D3D3D3';
+			elseif ($y == 1 && $x == 0 && $z == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($y == 1 && $x == 0 && $z == 0)	return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector16($x,$y,$z,$w,$t,$s)
+	{
+		if  ($x == 1 && $z == 1 && $w == 1 && $t == 1)	return 'rgb(255,128,0)';
+			elseif ($x == 1 && $z == 1 && $t == 1)  return 'rgb(255,128,0)';
+			elseif ($x == 1 && $z == 1 && $y == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($x == 1 && $z == 1 && $w == 1)  return 'rgb(0,0,255)';
+			elseif ($x == 1 && $z == 1 && $t == 1)  return 'rgb(255,128,0)';
+			elseif ($x == 1 && $z == 0)	return '#D3D3D3';
+			elseif ($x == 1 && $y == 1 && $z == 0)	return '#D3D3D3';
+			elseif ($x == 0 && $z == 0)	return '#D3D3D3';
+			elseif ($x == 0 && $z == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($x == 1 && $z == 1 && $w == 0 || $t == 0)	return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector17($s,$z,$w,$t)
+	{
+		if  ($s == 1 && $z == 1 && $w == 1)	return 'rgb(0,0,255)';
+			elseif ($s == 1 && $z == 1 && $t == 1 )  return 'rgb(255,128,0)';
+			elseif ($s == 1 && $z == 0 && $t == 1 )  return 'rgb(255,128,0)';
+			elseif ($s == 1 && $w == 1)  return 'rgb(0,0,255)';
+			elseif ($s == 0) return '#D3D3D3';
+			elseif ($s == 1 && $t == 0 || $w == 0) return 'rgb(255,128,0)';
+ 			else return 'red';
+	}
+
+
+
+	function sector18($s,$z,$w,$t)
+	{
+		if  ($s == 1 && $w == 1 && $t == 1)	return 'rgb(255,128,0)';
+			elseif ($z == 1 && $w == 1 && $t == 1)	return 'rgb(255,128,0)';
+			elseif ($s == 1 && $z == 0 && $t == 1 )	return 'rgb(255,128,0)';
+			elseif ($s == 1 && $z == 0 && $w == 1)	return 'rgb(0,0,255)';
+			elseif ($s == 0 && $z == 1 && $t == 1 )  return 'rgb(255,128,0)';
+			elseif ($s == 0 && $z == 1 && $w == 1 )  return 'rgb(0,0,255)';
+			elseif ($s == 1 && $w == 1)  return 'rgb(0,0,255)';
+			elseif ($s == 0 && $w == 1) return 'rgb(0,0,255)';
+			elseif ($s == 0 && $t == 1) return 'rgb(255,128,0)';
+			elseif ($s == 0 && $z == 0 && $w == 0 )  return '#D3D3D3';
+			elseif ($s == 1 && $t == 0 || $w == 0) return 'rgb(255,128,0)';
+ 			else return 'red';
+	}
+
+	function sector19($s,$z,$w,$t)
+	{
+		if  ($s == 1 && $w == 1 && $t == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($z == 1 && $w == 1 && $t == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($w == 1 && $t == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($s == 1 && $z == 0 && $t == 1 )	return 'rgb(255,128,0)';
+			elseif ($s == 1 && $z == 0 && $w == 1)	return '#D3D3D3';
+			elseif ($s == 0 && $z == 1 && $t == 1 )  return 'rgb(255,128,0)';
+			elseif ($s == 0 && $z == 1 && $w == 1 )  return '#D3D3D3';
+			elseif ($s == 0 && $w == 1) return '#D3D3D3';
+			elseif ($s == 0 && $t == 1 && $z == 1 && $w == 0 ) return 'rgb(255,128,0)';
+			elseif ($s == 0 && $z == 0 && $t == 1 )  return 'rgb(255,128,0)';
+			elseif ($s == 0 && $z == 0 && $w == 0 )  return '#D3D3D3';
+			elseif ($s == 0 && $z == 0 && $t == 0 )  return '#D3D3D3';
+			elseif ($s == 1 && $z == 1 && $t == 1 )	return 'rgb(255,128,0)';
+			elseif ($s == 1 && $z == 1 && $t == 0 && $w == 1)	return '#D3D3D3';
+			elseif ($s == 1 && $t == 0)	return '#D3D3D3';
+ 			else return 'red';
+	}
+
+
+	
+	function sector20($s,$z,$w,$t)
+	{
+		if  ($s == 1 && $w == 1 && $t == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($z == 1 && $w == 1 && $t == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($w == 1 && $t == 1)	return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($s == 1 && $z == 0 && $t == 1 )	return '#D3D3D3';
+			elseif ($s == 1 && $z == 0 && $w == 1)	return 'rgb(0,0,255)';
+			elseif ($s == 0 && $z == 1 && $t == 1 )  return '#D3D3D3';
+			elseif ($s == 0 && $z == 1 && $w == 1 )  return 'rgb(0,0,255)';
+			elseif ($s == 0 && $t == 1) return '#D3D3D3';
+			elseif ($s == 0 && $w == 1 && $z == 1 && $t == 0 ) return 'rgb(0,0,255)';
+			elseif ($s == 0 && $z == 0 && $w == 1 )  return 'rgb(0,0,255)';
+			elseif ($s == 0 && $z == 0 && $t == 0 )  return '#D3D3D3';
+			elseif ($s == 1 && $w == 1) return 'rgb(0,0,255)';
+			elseif ($s == 1 && $w == 0 && $z == 1 && $t == 1 ) return '#D3D3D3';
+			elseif ($s == 1 && $w == 0)	return '#D3D3D3';
+ 			else return 'red';
+	}
+
+	function sector42($v)
+	{
+		if ($v == 1) return 'rgb(0,0,255)';
+			elseif ($v == 0)	return '#D3D3D3';
+ 			else return 'red';
+	}
+
+
+/////////////////// PVN 4 & 6      !!!!!!
+
+	function sector21($g,$h,$k,$n,$l)
+	{
+		if ($g == 0) return '#D3D3D3';
+			elseif ($n == 1 && $h == 1 && $k == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($n == 1 && $g == 1 && $h == 0 ) return 'rgb(255,128,0)';
+			elseif ($n == 1 && $g == 1 && $l == 1 ) return 'rgb(0,0,255)';
+			elseif ($n == 1 && $g == 1 && $l == 0) return 'rgb(0,0,255)';
+			elseif ($n == 1 && $g == 1) return 'rgb(255,128,0)';
+			elseif ($g == 1 && $h == 1 && $k == 1) return 'rgb(255,128,0)';
+			elseif ($g == 1 && $h == 1) return 'rgb(0,0,255)';
+			elseif ($g == 1 && $h == 0) return 'rgb(255,128,0)';
+			elseif ($g == 1 && $k == 0) return 'rgb(255,128,0)';
+			elseif ($g == 1 && $k == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+
+
+
+
+$g = onOff($d25_7,$d25_8);
+$h = onOff($d32_9,$d32_10);
+//$l = 1;
+$m = onOff($d27_1,$d27_2);
+$p = onOff($d33_3,$d33_4);
+$n = onOff($d26_5,$d26_6);
+$k = onOff($d32_11,$d32_12);
+
+	function sector22($g,$l,$k,$n,$h)
+	{
+		if ($n == 1 && $h == 1 && $k == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($h == 1 && $k == 1) return 'rgb(255,128,0)';
+			elseif ($h == 1) return 'rgb(0,0,255)';
+			elseif ($k == 1) return 'rgb(255,128,0)';
+			elseif ($g == 0 && $n == 1 && $h == 1 ) return 'rgb(0,0,255)';
+			elseif ($g == 0 && $n == 1 && $h == 0 && $k == 1) return 'rgb(255,128,0)';
+			elseif ($g == 1 && $h == 1) return 'rgb(0,0,255)';
+			elseif ($g == 1 && $n == 0 && $h == 1) return 'rgb(0,0,255)';
+			elseif ($g == 1 && $n == 0 && $k == 1) return 'rgb(255,128,0)';
+			elseif ($g == 1 && $k == 1 && $h == 0) return 'rgb(255,128,0)';
+			elseif ($h == 0 && $k == 0 && $g == 1 || $n == 1) return 'rgb(255,128,0)';
+			elseif ($h == 0 && $k == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+	function sector23($n,$k,$h,$g,$p,$m)
+	{
+		if ($n == 0) return '#D3D3D3';
+			elseif ($n == 1 && $m == 1 ) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($n == 1 && $h == 1 && $k == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($n == 1 && $g == 1 && $h == 1) return 'rgb(0,0,255)';
+			elseif ($n == 1 && $g == 1 ) return 'rgb(255,128,0)';
+			elseif ($n == 1 && $h == 0 && $k == 0) return 'rgb(255,128,0)';
+			elseif ($n == 1 && $h == 1) return 'rgb(0,0,255)';
+			elseif ($n == 1 && $k == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector24($m,$n,$p,$k,$h)
+	{
+		if ($n == 1 && $m == 1 ) return 'rgb(255,128,0)';
+			elseif ($n == 1 && $h == 1) return 'rgb(0,0,255)';
+			elseif ($n == 1 && $k == 1) return 'rgb(255,128,0)';
+			elseif ($n == 0 && $p == 1) return 'rgb(255,128,0)';
+			elseif ($n == 1 && $p == 0) return 'rgb(255,128,0)';
+			elseif ($n == 0 && $m == 0) return '#D3D3D3';
+			elseif ($m == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector43($m,$n)
+	{
+		if ($n == 1 && $m == 1 ) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($m == 0) return '#D3D3D3';
+			elseif ($m == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+
+	
+	function sector25($p)
+	{
+		if ($p == 0) return '#D3D3D3';
+			elseif ($p == 1 ) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector26($h)
+	{
+		if ($h == 0) return '#D3D3D3';
+			elseif ($h == 1) return 'rgb(0,0,255)';
+			else return 'red';
+	}
+
+/////////////////// PVN 9 & 10      !!!!!!
+
+
+
+
+
+
+	function sector27($j,$j1,$j2,$i)
+	{
+		if ($j == 1 && $j2 == 1) return 'rgb(255,128,0)';
+			elseif ($j == 1 && $j1 == 1 ) return 'rgb(0,0,255)';
+			elseif ($j == 0 && $j2 == 1) return	'#FF00FF';
+			elseif ($j == 1 && $i == 1 ) return 'rgb(255,128,0)';
+			elseif ($j == 1 && $j1 == 0 ) return 'rgb(255,128,0)';
+			elseif ($j == 1 || $j2 == 1) return 'rgb(255,128,0)';
+			elseif ($j == 1 && $j2 == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($j == 0 && $j2 == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+	function sector28($j,$j1,$o,$i,$l)
+	{
+		if ($o == 1 && $i == 1 ) return 'rgb(255,128,0)';
+			elseif ($j == 1 && $j1 == 1 ) return 'rgb(0,0,255)';
+			elseif ($j == 1 && $j1 == 0 ) return 'rgb(255,128,0)';
+			elseif ($j == 1) return 'rgb(255,128,0)';
+			elseif ($j1 == 1 && $o == 1 && $l == 0) return 'rgb(255,128,0)';
+			elseif ($j1 == 1 && $o == 1) return 'rgb(0,0,255)';
+			elseif ($j == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+
+
+	function sector29($j,$j1,$o,$u,$r,$i,$l)
+	{
+		if ($o == 1 && $j1 == 1 && $i == 1 ) return 'rgb(255,128,0)';
+			elseif ($j1 == 1 && $o == 1 && $l == 0) return 'rgb(255,128,0)';
+			elseif($o == 1 && $j1 == 1 ) return 'rgb(0,0,255)';
+			elseif ($o == 1 || $u == 1) return 'rgb(255,128,0)';
+			elseif ($u == 1 && $r == 1 ) return 'rgb(255,128,0)';
+			elseif ($o == 1 && $i == 1 ) return 'rgb(255,128,0)';
+			elseif ($o == 0 && $u == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+	function sector30($j,$j1,$o,$u,$i,$l)
+	{
+		if ($o == 1 && $u == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($o == 1 && $j1 == 1 && $i == 1 ) return 'rgb(255,128,0)';
+			elseif ($j1 == 1 && $o == 1 && $l == 0) return 'rgb(255,128,0)';
+			elseif ($o == 1 && $j1 == 1 ) return 'rgb(0,0,255)';
+			elseif ($u == 1 && $o == 0 ) return '#D3D3D3';
+			elseif ($o == 1 && $i == 1 ) return 'rgb(255,128,0)';
+			elseif ($o == 0 && $u == 0) return '#D3D3D3';
+			elseif ($o == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector31($r,$k)
+	{
+		if ($r == 0 && $k == 0) return '#D3D3D3';
+			elseif ($r == 1 && $k == 1 ) return 'rgb(255,128,0)';
+			elseif ($r == 1 || $k == 1 ) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector32($r,$k,$h)
+	{
+		if ($k == 0) return '#D3D3D3';
+			elseif ($h == 1 && $k == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($r == 1 && $k == 1 ) return 'rgb(255,128,0)';
+			elseif ($k == 1 ) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector33($j,$j1,$j2)
+	{
+		if ($j == 0) return '#D3D3D3';
+			elseif ($j == 1 && $j2 == 1 ) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($j == 1 && $j1 == 1 ) return 'rgb(0,0,255)';
+			elseif ($j == 1 && $j1 == 0 ) return 'rgb(255,128,0)';
+			elseif ($j == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector34($p,$n)
+	{
+		if ($p == 0) return '#D3D3D3';
+			elseif ($p == 1 ) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector35($u,$r,$o)
+	{
+		if ($u == 1 && $o == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($u == 1) return 'rgb(255,128,0)';
+			elseif ($u == 1 && $r == 1) return 'rgb(255,128,0)';
+			elseif ($u == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+	function sector36($h,$k)
+	{
+		if ($h == 0) return '#D3D3D3';
+			elseif ($h == 1 && $k == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($h == 1) return 'rgb(0,0,255)';
+			else return 'red';
+	}
+
+	function sector37($r)
+	{
+		if ($r == 0) return '#D3D3D3';
+			elseif ($r == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector38($j3,$j4)
+	{
+		if ($j3 == 0) return '#D3D3D3';
+			elseif ($j3 == 1 && $j4 == 1) return '<polyline  fill="none" class="blink" stroke-width="2" />';
+			elseif ($j3 == 1) return '#FF00FF';
+			else return 'red';
+	}
+
+	function sector39($i)
+	{
+		if ($i == 1) return 'rgb(255,128,0)';
+			elseif ($i == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+	function sector40($l,$i)
+	{
+		if ($l == 1 && $i == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($l == 1) return 'rgb(0,0,255)';
+			elseif ($l == 0) return '#D3D3D3';
+			else return 'red';
+	}
+$j = onOff($d27_5,$d27_6);
+$j1 = onOff($d33_7,$d33_8);
+$i = onOff($d33_9,$d33_10);
+$u = onOff($d27_3,$d27_4);
+$r = onOff($d33_5,$d33_6);
+//$k = 1;
+$o = onOff($d27_7,$d27_8);
+$j2 = onOff($d28_3,$d28_4);
+$j3 = onOff($d28_1,$d28_2);
+$j4 = 0;
+$l = onOff($d34_7,$d34_8);
+
+	function sector44($l,$i,$o,$j,$j1)
+	{
+		if ($l == 1 && $i == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($j == 1 && $j1 == 1 && $l == 1) return '#D3D3D3';
+			elseif ($j == 1 && $j1 == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($i == 1 && $o == 1 || $j == 1) return 'rgb(255,128,0)';
+			elseif ($i == 1 && $o == 1 & $j == 1) return 'rgb(255,128,0)';
+			elseif ($o == 0 && $j == 0 && $i == 0) return '#D3D3D3';
+			elseif ($o == 0 && $j == 0 && $i == 1) return '#D3D3D3';
+			elseif ($o == 1 && $j == 0 && $i == 0) return '#D3D3D3';
+			elseif ($o == 1 && $j == 0 && $i == 1) return 'rgb(255,128,0)';
+			elseif ($o == 0 && $j == 1 && $i == 0) return '#D3D3D3';
+			elseif ($o == 0 && $j == 1 && $i == 1) return 'rgb(255,128,0)';
+			else return 'red';
+	}
+
+	function sector45($j1,$j,$l)
+	{
+		if ($j == 1 && $j1 == 1 && $l == 1) return 'rgb(0,0,255)';
+			elseif ($j == 1 && $j1 == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($j1 == 1) return 'rgb(0,0,255)';
+			elseif ($j1 == 0) return '#D3D3D3';
+			else return 'red';
+	}
+
+	function sector46($h,$k,$j1)
+	{
+		if ($h == 0 && $j1 == 0) return '#D3D3D3';
+			elseif ($h == 1 && $j1 == 0) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($h == 0 && $j1 == 1) return 'rgb(0,0,255)';
+			elseif ($h == 1 || $j1 == 1) return 'rgb(0,0,255)';
+			else return 'red';
+	}
+
+	function sector47($j,$j2,$j3,$j4)
+	{
+		if ($j2 == 0) return '#D3D3D3';
+			elseif ($j2 == 1 && $j == 1) return '<polyline points="1003.14 117.15 1042.29 117.15" fill="none" class="blink" stroke-width="2" />';
+			elseif ($j2 == 1 && $j == 0) return '#FF00FF';
+			
+			else return 'red';
+	}
+
+	function sector48($j4,$j3)
+	{
+		if ($j4 == 0) return '#D3D3D3';
+			elseif ($j4 == 1 && $j3 == 1) return '<polyline  fill="none" class="blink" stroke-width="2" />';
+			elseif ($j4 == 1) return '#FF00FF';
+			else return 'red';
+	}
+
+?>
+
+ 
+
+		
+
+
+
+<style>
+.blink {
+  animation: blink-animation 0.5s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+  fill: red;
+  stroke: red;
+  
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+</style>
+
+
+<!--- ШМ --->
+<input  title="I" id="i-shm1" type="submit" value="" >
+<input  title="O2" id="o2-shm1" type="submit" value="" >
+<input  title="I" id="i-shm2" type="submit" value="" >
+<input  title="O2" id="o2-shm2" type="submit" value="" >
+<input  title="I" id="i-shm3" type="submit" value="" >
+<input  title="О2" id="o2-shm3" type="submit" value="" >
+<input  title="I" id="i-shm4" type="submit" value="" >
+<input  title="O2" id="o2-shm4" type="submit" value="" >
+<input  title="I" id="i-shm5" type="submit" value="" >
+<input  title="O2" id="o2-shm5" type="submit" value="" >
+<input  title="I" id="i-shm6" type="submit" value="" >
+<input  title="О2" id="o2-shm6" type="submit" value="" >
+
+<!--- БП2 --->
+<input  title="Т" id="t1" type="submit" value="" >
+<input  title="Т" id="t2" type="submit" value="" >
+<input  title="Т" id="t3" type="submit" value="" >
+<input  title="Т" id="t4" type="submit" value="" >
+<input  title="%" id="percentage-bp2" type="submit" value="<?php echo $percentage_bp2; ?>" >
+<input  title="О2" id="o2-bp2" type="submit" value="" >
+
+<!--- БП1 --->
+<input  title="Т" id="t5" type="submit" value="" >
+<input  title="Т" id="t6" type="submit" value="" >
+<input  title="Т" id="t7" type="submit" value="" >
+<input  title="Т" id="t8" type="submit" value="" >
+<input  title="%" id="percentage-bp1" type="submit" value="" >
+<input  title="О2" id="o2-bp1" type="submit" value="" >
+
+<!---Котлы --->
+
+<input  title="Т" id="t9" type="submit" value="<?php echo $lvb; ?>" >
+<input  title="Т" id="t10" type="submit" value="<?php echo $pvb; ?>" >
+<input  title="Т" id="t11" type="submit" value="<?php echo $lnb; ?>" >
+<input  title="Т" id="t12" type="submit" value="<?php echo $pnb; ?>" >
+
+<input  title="Т" id="t13" type="submit" value="<?php echo $lva; ?>" >
+<input  title="Т" id="t14" type="submit" value="<?php echo $pva; ?>" >
+<input  title="Т" id="t15" type="submit" value="<?php echo $lna; ?>" >
+<input  title="Т" id="t16" type="submit" value="<?php echo $pna; ?>" >
+
+
+
+
+<!--- 7Б --->
+<input  title="Ad" id="ad1" type="submit" value="<?php echo $bAd ?>" >
+<input  title="Vdaf" id="vdaf1" type="submit" value="<?php echo $bVdaf ?>" >
+<input  title="Wr" id="wr1" type="submit" value="<?php echo $bWr ?>" >
+<input  title="percentage" id="percentage1" type="submit" value="" >
+<input  title="O2" id="o21" type="submit" value="" >
+<input  title="P" id="p1" type="submit" value="<?php echo $P7B ?>" >
+<!--- 7А --->
+<input  title="Ad" id="ad" type="submit" value="<?php echo $aAd ?>" >
+<input  title="Vdaf" id="vdaf" type="submit" value="<?php echo $aVdaf ?>" >
+<input  title="Wr" id="wr" type="submit" value="<?php echo $aWr ?>" >
+<input  title="percentage" id="percentage" type="submit" value="" >
+<input  title="O2" id="o2" type="submit" value="" >
+<input  title="P" id="p" type="submit" value="<?php echo $P7A ?>" >
+
+
+<input  title="Ad" id="bsu1-ad" type="submit" value="<?php echo $Ad1?>" >
+<input  title="Vdaf" id="bsu1-vdaf" type="submit" value="<?php echo $Vdaf1?>" >
+<input  title="Wr" id="bsu1-wr" type="submit" value="<?php echo $Wr1 ?>" >
+
+<input  title="Ad" id="bsu2-ad" type="submit" value="<?php echo $Ad2 ?>" >
+<input  title="Vdaf" id="bsu2-vdaf" type="submit" value="<?php echo $Vdaf2 ?>" >
+<input  title="Wr" id="bsu2-wr" type="submit" value="<?php echo $Wr2 ?>" >
+
+<input  title="Ad" id="bsu3-ad" type="submit" value="<?php echo $Ad3 ?>" >
+<input  title="Vdaf" id="bsu3-vdaf" type="submit" value="<?php echo $Vdaf3 ?>" >
+<input  title="Wr" id="bsu3-wr" type="submit" value="<?php echo $Wr3 ?>" >
+
+<input  title="Ad" id="bsu4-ad" type="submit" value="<?php echo $Ad4 ?>" >
+<input  title="Vdaf" id="bsu4-vdaf" type="submit" value="<?php echo $Vdaf4 ?>" >
+<input  title="Wr" id="bsu4-wr" type="submit" value="<?php echo $Wr4 ?>" >
+
+<input  title="Ad" id="bsu5-ad" type="submit" value="<?php echo $Ad5 ?>" >
+<input  title="Vdaf" id="bsu5-vdaf" type="submit" value="<?php echo $Vdaf5 ?>" >
+<input  title="Wr" id="bsu5-wr" type="submit" value="<?php echo $Wr5 ?>" >
+
+<input  title="Ad" id="bsu6-ad" type="submit" value="<?php echo $Ad6 ?>" >
+<input  title="Vdaf" id="bsu6-vdaf" type="submit" value="<?php echo $Vdaf6 ?>" >
+<input  title="Wr" id="bsu6-wr" type="submit" value="<?php echo $Wr6 ?>" >
+					
+					<!--/////////////////////// Римская цифра I - &#8544;   -->
+
+<input  title="Смесь" id="bsu6-smes" type="submit" value="<?php echo $smes6 ?>">
+<input  title="%" id="bsu6-proc" type="submit" value="">
+
+<input  title="Смесь" id="bsu5-smes" type="submit" value="<?php echo $smes5 ?>">
+<input  title="%" id="bsu5-proc" type="submit" value="">
+
+<input  title="Смесь" id="bsu4-smes" type="submit" value="<?php echo $smes4 ?>">
+<input  title="%" id="bsu4-proc" type="submit" value="">
+
+<input  title="Смесь" id="bsu3-smes" type="submit" value="<?php echo $smes3 ?>">
+<input  title="%" id="bsu3-proc" type="submit" value="">
+
+<input  title="Смесь" id="bsu2-smes" type="submit" value="<?php echo $smes2 ?>">
+<input  title="%" id="bsu2-proc" type="submit" value="">
+
+<input  title="Смесь" id="bsu1-smes" type="submit" value="<?php echo $smes1 ?>">
+<input  title="%" id="bsu1-proc" type="submit" value="">
+
+					<!--///////////////////////-->
+
+<input  title="Т" id="t-rou1" type="submit" value="">
+<input  title="Р" id="p-rou1" type="submit" value="">
+
+<input  title="Т" id="t-rou3" type="submit" value="<?php echo $trou3; ?>">
+<input  title="Р" id="p-rou3" type="submit" value="<?php echo $prou3; ?>">
+
+					<!--///////////////////////-->
+
+<input  title="I" id="i-pps3" type="submit" value="">
+<input  title="T" id="t-pps3" type="submit" value="<?php echo $tpps3; ?>">
+
+<input  title="I" id="i-pps2" type="submit" value="">
+<input  title="T" id="t-pps2" type="submit" value="">
+
+<input  title="I" id="i-pps1" type="submit" value="">
+<input  title="T" id="t-pps1" type="submit" value="">
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with "sPlan" (http://www.abacom-online.de) -->
+<svg version="1.1" baseProfile="full"
+xmlns="http://www.w3.org/2000/svg"
+width="1850" height="910">
+
+<defs>
+<style type="text/css">
+<![CDATA[
+polyline {stroke-linecap:round; stroke-linejoin:round}
+polygon {stroke-linecap:round; stroke-linejoin:round}
+path {stroke-linecap:round; stroke-linejoin:round}
+circle {stroke-linecap:round; stroke-linejoin:round}
+]]>
+</style>
+</defs>
+<polyline points="1118.42 668.77 1001.20 668.77" fill="none" stroke="<?php 	echo sector17($s,$z,$w,$t); ?>" stroke-width="2" />
+<path fill="rgb(247,247,247)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 55 117 L 89 117 89 142 55 142 55 117" />
+<path fill="rgb(244,244,244)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 20 117 L 55 117 55 142 20 142 20 117" />
+<path fill="none" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 20 93 L 90 93 90 116 20 116 20 93" />
+<path fill="<?php echo pvn($pvn11); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 182 L 1002 182 1002 204 975 204 975 182" />
+<path fill="<?php echo pvn($pvn10); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 254 L 1002 254 1002 276 975 276 975 254" />
+<path fill="<?php echo pvn($pvn9); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 326 L 1002 326 1002 348 975 348 975 326" />
+<path fill="<?php echo pvn($pvn1); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 807 L 1001 807 1001 830 975 830 975 807" />
+<path fill="<?php echo pvn($pvn2); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 734 L 1001 734 1001 756 975 756 975 734" />
+<path fill="<?php echo pvn($pvn3); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 660 L 1001 660 1001 682 975 682 975 660" />
+<path fill="<?php echo pvn($pvn4); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 586 L 1001 586 1001 608 975 608 975 586" />
+<path fill="<?php echo pvn($pvn5); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 512 L 1001 512 1001 534 975 534 975 512" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 107 171 L 220 171 220 226 107 226 107 171" />
+<path fill="rgb(243,243,243)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 138 226 L 190 226 190 248 138 248 138 226" />
+<path fill="rgb(244,244,244)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 138 278 L 190 278 190 300 138 300 138 278" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 107 300 L 220 300 220 355 107 355 107 300" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 107 418 L 220 418 220 473 107 473 107 418" />
+<path fill="rgb(248,248,248)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 138 473 L 190 473 190 496 138 496 138 473" />
+<path fill="rgb(245,245,245)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 138 526 L 190 526 190 548 138 548 138 526" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 107 548 L 220 548 220 604 107 604 107 548" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 107 665 L 220 665 220 721 107 721 107 665" />
+<path fill="rgb(247,247,247)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 138 721 L 190 721 190 743 138 743 138 721" />
+<path fill="rgb(249,249,249)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 138 771 L 190 771 190 793 138 793 138 771" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 107 793 L 220 793 220 848 107 848 107 793" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 443 239 L 539 239 539 294 443 294 443 239" />
+<polyline points="163.27 264.82 442.48 264.82" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="539.15 268.57 560.91 268.57" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 617 165 L 713 165 713 221 617 221 617 165" />
+<polyline points="560.91 268.57 560.91 191.02" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="560.91 191.02 617.48 191.02" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 617 313 L 713 313 713 368 617 368 617 313" />
+<polyline points="560.91 342.42 560.91 268.57" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="560.91 342.42 617.48 342.42" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 443 486 L 539 486 539 542 443 542 443 486" />
+<polyline points="163.27 514.22 441.13 514.22" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="539.15 515.97 560.91 515.97" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 617 431 L 713 431 713 486 617 486 617 431" />
+<polyline points="560.91 515.97 560.91 456.89" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="560.91 456.89 617.48 456.89" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 617 560 L 713 560 713 612 617 612 617 560" />
+<polyline points="560.91 589.82 560.91 515.97" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="560.91 589.82 617.48 589.82" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 443 734 L 539 734 539 789 443 789 443 734" />
+<polyline points="163.97 757.28 443.17 757.28" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="539.15 760.88 560.91 760.88" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 617 677 L 713 677 713 730 617 730 617 677" />
+<polyline points="560.91 760.88 560.91 700.60" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="560.91 700.60 617.48 700.60" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 617 808 L 713 808 713 863 617 863 617 808" />
+<polyline points="560.91 837.22 560.91 760.88" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="560.91 837.22 617.48 837.22" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 229 76 L 294 76 294 132 229 132 229 76" />
+<polyline points="328.75 84.13 328.75 132.46" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 793 85 L 975 85 975 368 793 368 793 85" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 793 414 L 976 414 976 865 793 865 793 414" />
+<path fill="<?php echo pvn($pvn12); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 975 106 L 1002 106 1002 128 975 128 975 106" />
+<polyline points="757.27 109.45 953.59 109.45" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="953.59 109.45 953.59 131.14" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="818.35 109.45 818.35 131.60" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="713.65 343.10 953.59 343.10" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="953.58 319.94 953.58 342.10" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="818.66 319.94 818.66 342.10" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="714.65 457.23 962.12 457.23" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+
+
+<polyline points="897.00 456.28 897.00 436.14" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="962.12 456.28 962.12 436.55" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="713.65 591.61 949.23 591.61" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="949.23 591.61 949.23 744.59" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="949.23 633.81 962.28 633.81" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="713.65 702.17 739.82 702.17" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="739.82 702.17 739.82 806.99" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="739.82 806.99 818.35 806.99" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="818.66 807.37 818.66 718.74" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="818.66 718.74 831.72 718.74" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="818.66 788.90 831.72 788.90" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="883.94 836.90 883.94 718.74" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="883.94 718.74 897.00 718.74" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="883.94 788.90 897.00 788.90" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="713.65 835.90 883.79 835.90" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="113.51" y="189.44" font-family ="Arial" font-size ="13pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.209,1.000)">БСУ6</text>
+<polyline points="293.41 105.52 328.14 105.52" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="387.83" y="276.49" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ППС3</text>
+<text x="387.83" y="523.90" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ППС2</text>
+<text x="387.83" y="771.30" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ППС1</text>
+<text x="182.87" y="111.49" font-family ="Arial" font-size ="12pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.280,1.000)">РОУ1</text>
+<text x="540.89" y="202.64" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ШМ6</text>
+<text x="540.89" y="350.34" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ШМ5</text>
+<text x="540.89" y="468.51" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ШМ4</text>
+<text x="540.89" y="595.75" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ШМ3</text>
+<text x="540.89" y="712.22" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ШМ2</text>
+<text x="540.89" y="845.15" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">ШМ1</text>
+<text x="124.58" y="244.33" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">3Б</text>
+<text x="124.59" y="296.11" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">3А</text>
+<text x="123.42" y="544.30" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">2А</text>
+<text x="123.44" y="490.91" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">2Б</text>
+<text x="123.18" y="739.02" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">1Б</text>
+<text x="123.42" y="788.85" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">1А</text>
+<text x="243.33" y="128.46" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.244,1.000)">P</text>
+<text x="732.24" y="236.11" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">БП2</text>
+<text x="732.15" y="660.20" font-family ="Arial" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.166,1.000)">БП1</text>
+<text x="844.27" y="121.16" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.160,1.000)">12</text>
+<text x="844.23" y="197.14" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">11</text>
+<text x="844.23" y="269.43" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">10</text>
+<text x="847.60" y="339.92" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">9</text>
+<text x="848.04" y="527.42" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.160,1.000)">5</text>
+<text x="848.04" y="601.27" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.160,1.000)">4</text>
+<text x="848.04" y="675.12" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.160,1.000)">3</text>
+<text x="848.04" y="748.98" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.160,1.000)">2</text>
+<text x="848.04" y="822.83" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.160,1.000)">1</text>
+<text x="532.00" y="243.86" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.163,1.000)">О2</text>
+<text x="532.00" y="388.70" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.163,1.000)">О2</text>
+<text x="532.00" y="508.07" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.163,1.000)">О2</text>
+<text x="532.00" y="883.66" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.163,1.000)">О2</text>
+<text x="197.23" y="182.44" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">Анализ</text>
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 1233 387 L 1492 387 1492 579 1233 579 1233 387" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 1549 387 L 1808 387 1808 579 1549 579 1549 387" />
+<polyline points="1003.09 817.55 1339.73 817.55" fill="none" stroke="<?php echo sector9($a1,$b1,$c1); ?>" stroke-width="2" />
+<polyline points="1339.84 629.33 1339.73 485.01" fill="none" stroke="<?php echo sector10($a1,$b1,$c1); ?>" stroke-width="2" />
+<polyline points="1339.73 485.01 1370.23 471.57" fill="none" stroke="<?php echo sector10($a1,$b1,$c1); ?>" stroke-width="2" />
+<polyline points="1003.20 744.06 1330.16 744.06" fill="none" stroke="<?php echo sector12($x1, $y1); ?>" stroke-width="2" />
+<polyline points="1348.52 744.06 1825.85 743.82" fill="none" stroke="<?php echo sector12($x1, $y1); ?>" stroke-width="2" />
+<polyline points="1825.85 743.82 1826.10 410.62" fill="none" stroke="<?php echo sector12($x1, $y1); ?>" stroke-width="2" />
+<polyline points="1826.10 410.62 1751.24 410.62" fill="none" stroke="<?php echo sector13($x1, $y1); ?>" stroke-width="2" />
+<polyline points="1682.82 414.20 1682.82 620.16" fill="none" stroke="<?php echo sector42($v); ?>" stroke-width="2" />
+<polyline points="1118.42 668.77 1331.16 668.77" fill="none" stroke="<?php echo sector18($s,$z,$w,$t); ?>" stroke-width="2" />
+<polyline points="1348.52 668.77 1522.19 668.77" fill="none" stroke="<?php echo sector18($s,$z,$w,$t); ?>" stroke-width="2" />
+<polyline points="1682.82 668.77 1682.82 636.50" fill="none" stroke="<?php echo sector42($v); ?>" stroke-width="2" />
+<circle cx="1340" cy="629" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1522" cy="669" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<polyline points="1345.84 629.33 1721.90 629.33" fill="none" stroke="<?php echo sector11($a1,$b1,$c1,$d1); ?>" stroke-width="2" />
+<polyline points="1721.90 629.33 1787.02 439.30" fill="none" stroke="<?php echo sector41($d1) ?>" stroke-width="2" />
+<polyline points="1522.19 636.50 1522.19 663.23" fill="none" stroke="<?php echo sector19($s,$z,$w,$t); ?>" stroke-width="2" />
+<polyline points="1522.19 622.16 1522.19 511.38" fill="none" stroke="<?php echo sector19($s,$z,$w,$t); ?>" stroke-width="2" />
+<polyline points="1522.19 511.38 1435.36 407.03" fill="none" stroke="<?php echo sector19($s,$z,$w,$t); ?>" stroke-width="2" />
+<polyline points="1003.00 116.61 1040.27 116.61" fill="none" stroke="<?php echo sector1($pvn12,$a,$f,$b); ?>" stroke-width="2" />
+<polyline points="1140.13 116.61 1140.02 329.59" fill="none" stroke="<?php echo sector3($a,$c,$b); ?>" stroke-width="2" />
+<polyline points="1140.13 546.86 1283.40 546.86" fill="none" stroke="<?php echo sector3($a,$c,$b); ?>" stroke-width="2" />
+<polyline points="1148.81 191.91 1365.89 191.91" fill="none" stroke="<?php echo sector7($d,$f,$e); ?>" stroke-width="2" />
+<polyline points="1365.89 191.91 1452.72 303.06" fill="none" stroke="<?php echo sector7($d,$f,$e); ?>" stroke-width="2" />
+<polyline points="1539.55 410.62 1591.38 410.62" fill="none" stroke="<?php echo sector7($d,$f,$e); ?>" stroke-width="2" />
+<polyline points="1148.81 263.62 1304.18 263.62" fill="none" stroke="<?php echo sector28($j,$j1,$o,$i,$l); ?>" stroke-width="2" />
+<polyline points="1304.18 263.62 1344.18 263.62" fill="none" stroke="<?php echo sector44($l,$i,$o,$j,$j1) ?>" stroke-width="2" />	
+<polyline points="1383.26 310.23 1468.37 416.62" fill="none" stroke="<?php echo sector39($i); ?>" stroke-width="2" />
+<polyline points="1035.82 336.82 1239.34 336.82" fill="none" stroke="<?php echo sector35($u,$r,$o); ?>" stroke-width="2" />
+<polyline points="1239.34 336.82 1305.34 336.82" fill="none" stroke="<?php echo sector37($r); ?>" stroke-width="2" />	
+<polyline points="1452.72 518.18 1309.34 336.82" fill="none" stroke="<?php echo sector31($r,$k); ?>" stroke-width="2" />
+<polyline points="1383.26 310.23 1552.58 310.23" fill="none" stroke="<?php echo sector40($l,$i) ?>" stroke-width="2" />
+<polyline points="1552.58 310.23 1626.38 403.45" fill="none" stroke="<?php echo sector40($l,$i) ?>" stroke-width="2" />
+<polyline points="1464.01 315.42 1539.55 410.62" fill="none" stroke="<?php echo sector7($d,$f,$e); ?>" stroke-width="2" />
+<circle cx="1288" cy="310" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1309" cy="337" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1239" cy="337" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<polyline points="1003.70 191.91 1040.27 191.91" fill="none" stroke="<?php echo sector5($pvn11,$c,$d) ?>" stroke-width="2" />
+<polyline points="1023.70 263.62 1096.71 263.62" fill="none" stroke="<?php echo sector33($j,$j1,$j2); ?>" stroke-width="2" />
+<polyline points="1004.00 263.62 1013.70 263.62" fill="none" stroke="<?php echo sector27($j,$j1,$j2,$i); ?>" stroke-width="2" />
+<text x="538.02" y="-1089.14" font-family ="ARIAL" font-size ="21pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.569,1.000)"></text>
+<text x="636.92" y="-1089.14" font-family ="ARIAL" font-size ="21pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.569,1.000)"></text>
+<path fill="none" stroke="<?php echo sector3($a,$c,$b); ?>" stroke-width="2" d=" M 1139.28 329.67 Q 1139.10 329.67 1138.32 330.01 Q 1137.53 330.35 1136.84 330.81 Q 1136.15 331.27 1135.59 331.83 Q 1135.02 332.38 1134.60 333.02 Q 1134.18 333.65 1133.93 334.34 Q 1133.67 335.03 1133.58 335.75 Q 1133.49 336.47 1133.58 337.18 Q 1133.67 337.90 1133.93 338.59 Q 1134.18 339.28 1134.60 339.91 Q 1135.02 340.55 1135.59 341.11 Q 1136.15 341.66 1136.84 342.12 Q 1137.53 342.58 1138.32 342.92 Q 1139.10 343.26 1139.24 343.31 L 1139.38 343.37" />
+<text x="533.47" y="-1151.29" font-family ="ARIAL" font-size ="25pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.603,1.000)"></text>
+<polyline points="1040.27 116.61 1101.05 191.91" fill="none" stroke="<?php echo sector8($a,$b,$f,$e); ?>" stroke-width="2" />
+<polyline points="1101.05 116.61 1040.27 191.91" fill="none" stroke="<?php echo sector4($pvn11,$c,$d,$a,$b); ?>" stroke-width="2" />
+<polyline points="1096.71 263.62 1036.48 337.11" fill="none" stroke="<?php echo sector30($j,$j1,$o,$u,$i,$l); ?>" stroke-width="2" />
+<circle cx="1040" cy="117" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1101" cy="117" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1040" cy="192" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1101" cy="192" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1097" cy="264" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1036" cy="337" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<polyline points="1035.93 521.77 1131.44 521.77" fill="none" stroke="<?php echo sector15($x,$y,$z); ?>" stroke-width="2" />
+<polyline points="1253.01 521.77 1279.60 478.74" fill="none" stroke="<?php echo sector15($x,$y,$z); ?>" stroke-width="2" />
+<polyline points="1002.27 597.32 1018.56 597.06" fill="none" stroke="<?php echo sector21($g,$h,$k,$n,$l); ?>" stroke-width="2" />
+<polyline points="1018.56 597.06 1096.71 478.74" fill="none" stroke="<?php echo sector21($g,$h,$k,$n,$l); ?>" stroke-width="2" />
+<polyline points="1186.88 342.50 1145.47 409.62" fill="none" stroke="<?php echo sector22($g,$l,$k,$n,$h); ?>" stroke-width="2" />
+<polyline points="1370.23 471.57 1060.82 471.57" fill="none" stroke="<?php echo sector34($p,$n); ?>" stroke-width="2" />
+<polyline points="1209.59 310.23 1196.57 330.74" fill="none" stroke="<?php echo sector22($g,$l,$k,$n,$h); ?>" stroke-width="2" />
+<polyline points="1140.13 478.74 1140.13 546.86" fill="none" stroke="<?php echo sector3($a,$c,$b); ?>" stroke-width="2" />
+<circle cx="1383" cy="310" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1343" cy="310" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1304" cy="263" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<polyline points="1052.80 552.92 1118.42 668.77" fill="none" stroke="<?php echo sector16($x,$y,$z,$w,$t,$s); ?>" stroke-width="2" />
+<polyline points="1045.73 539.34 1035.19 522.11" fill="none" stroke="<?php echo sector16($x,$y,$z,$w,$t,$s); ?>" stroke-width="2" />
+<circle cx="1036" cy="522" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1118" cy="669" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<text x="591.39" y="32.56" font-family ="Arial" font-size ="30pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.185,1.000)">Схема  подачи   топлива</text>
+<polyline points="163.27 496.14 163.27 514.22" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="113.51" y="318.52" font-family ="Arial" font-size ="13pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.209,1.000)">БСУ5</text>
+<text x="113.75" y="437.23" font-family ="Arial" font-size ="13pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.209,1.000)">БСУ4</text>
+<text x="113.98" y="567.45" font-family ="Arial" font-size ="13pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.209,1.000)">БСУ3</text>
+<text x="113.75" y="684.63" font-family ="Arial" font-size ="13pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.209,1.000)">БСУ2</text>
+<text x="113.98" y="812.01" font-family ="Arial" font-size ="13pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.209,1.000)">БСУ1</text>
+<text x="197.23" y="311.68" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">Анализ</text>
+<text x="197.23" y="429.84" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">Анализ</text>
+<text x="197.23" y="559.08" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">Анализ</text>
+<text x="197.23" y="677.25" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">Анализ</text>
+<text x="197.23" y="806.49" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">Анализ</text>
+<text x="532.11" y="634.09" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">О2</text>
+<text x="532.11" y="752.99" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">О2</text>
+<text x="793.28" y="204.66" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.155,1.000)">м</text>
+<text x="787.76" y="258.73" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">О2</text>
+<polyline points="949.23 744.59 962.28 744.59" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="787.68" y="684.82" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.161,1.000)">О2</text>
+<text x="793.20" y="630.44" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.155,1.000)">м</text>
+<text x="862.86" y="572.03" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.563,1.000)">7Б</text>
+<text x="1046.07" y="571.74" font-family ="Arial" font-size ="16pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.563,1.000)">7А</text>
+<text x="1813.35" y="82.86" font-family ="Arial" font-size ="14pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.870,1.000)">%</text>
+<text x="1903.55" y="122.85" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.829,1.000)">О2</text>
+<text x="1903.48" y="162.85" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.829,1.000)">Рвозд</text>
+<text x="1938.14" y="44.95" font-family ="Arial" font-size ="19pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.837,1.000)">7Б</text>
+<text x="2093.58" y="44.95" font-family ="Arial" font-size ="19pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.837,1.000)">7А</text>
+<text x="2060.18" y="82.14" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.829,1.000)">%</text>
+<text x="2060.38" y="122.28" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.829,1.000)">О2</text>
+<text x="2060.23" y="164.42" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.829,1.000)">Рвозд</text>
+<text x="31.12" y="110.54" font-family ="Arial" font-size ="15pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.202,1.000)">Т13</text>
+<text x="23.88" y="136.39" font-family ="Arial" font-size ="15pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.202,1.000)">А</text>
+<text x="52.85" y="136.39" font-family ="Arial" font-size ="15pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.202,1.000)">Б</text>
+<polyline points="293.92 84.13 293.92 132.46" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="243.33" y="100.30" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.244,1.000)">Т</text>
+<text x="388.01" y="563.85" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.164,1.000)">Т</text>
+<text x="388.04" y="318.46" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.164,1.000)">Т</text>
+<text x="388.04" y="813.25" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.164,1.000)">Т</text>
+
+
+<polyline points="1148.81 521.77 1253.01 521.77" fill="none" stroke="<?php echo sector15($x,$y,$z); ?>" stroke-width="2" />
+<polyline points="1140.13 464.40 1140.13 344.00" fill="none" stroke="<?php echo sector3($a,$c,$b); ?>" stroke-width="2" />
+<polyline points="1117.79 451.37 1106.39 467.98" fill="none" stroke="<?php echo sector21($g,$h,$k,$n,$l); ?>" stroke-width="2" />
+<polyline points="1135.79 421.37 1118.39 450.98" fill="none" stroke="<?php echo sector22($g,$l,$k,$n,$h); ?>" stroke-width="2" />
+<polyline points="1048.95 450.06 1118.42 450.06" fill="none" stroke="<?php echo sector23($n,$k,$h,$g,$p,$m); ?>" stroke-width="2" />
+<polyline points="1060.82 471.57 1048.95 450.06" fill="none" stroke="<?php echo sector43($m,$n); ?>" stroke-width="2" />
+<circle cx="1049" cy="450" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1118" cy="450" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<polyline points="37.37 141.71 37.41 883.33" fill="none" stroke="rgb(0,0,0)" stroke-width="5" />
+<polyline points="72.10 141.71 72.23 883.33" fill="none" stroke="rgb(0,0,0)" stroke-width="5" />
+<path fill="none" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 294 76 L 329 76 329 132 294 132 294 76" />
+<path fill="none" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 1570 16 L 1831 16 1831 298 1570 298 1570 16" />
+<polyline points="1569.94 56.72 1830.44 56.72" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="1700.19 16.22 1700.19 295.63" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="1569.94 97.21 1830.44 97.21" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="1569.94 137.70 1830.44 137.70" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="1569.94 178.20 1830.44 178.20" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<path fill="<?php echo pvn($pvn6); ?>" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 976 438 L 1001 438 1001 460 976 460 976 438" />
+<polyline points="757.27 109.45 757.27 192.62" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="757.27 192.62 713.65 192.62" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="1764.23" y="204.83" font-family ="Arial" font-size ="14pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.894,1.000)">Аd</text>
+<polyline points="1569.94 218.69 1830.44 218.69" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="1764.41" y="244.83" font-family ="Arial" font-size ="14pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.894,1.000)">Vdaf</text>
+<polyline points="1569.94 259.18 1830.44 259.18" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="1764.34" y="284.82" font-family ="Arial" font-size ="14pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.894,1.000)">Wr</text>
+<text x="1912.38" y="204.55" font-family ="Arial" font-size ="14pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.894,1.000)">Аd</text>
+<text x="1912.32" y="244.68" font-family ="Arial" font-size ="14pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.894,1.000)">Vdaf</text>
+<text x="1912.30" y="284.82" font-family ="Arial" font-size ="14pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(0.894,1.000)">Wr</text>
+<text x="848.04" y="453.57" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.160,1.000)">6</text>
+<text x="382.72" y="469.05" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="382.72" y="716.44" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="382.72" y="221.65" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="529.07" y="152.36" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="529.07" y="300.36" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="529.07" y="418.85" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="529.07" y="547.34" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="529.07" y="664.66" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="529.07" y="794.74" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544;</text>
+<text x="993.01" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="1085.24" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" d=" M 1018.39 589.94 Q 1017.61 590.08 1016.67 590.44 Q 1015.72 590.80 1014.90 591.29 Q 1014.07 591.78 1013.39 592.38 Q 1012.71 592.97 1012.21 593.65 Q 1011.70 594.33 1011.39 595.07 Q 1011.08 595.81 1010.98 596.58 Q 1010.87 597.34 1010.98 598.11 Q 1011.08 598.88 1011.39 599.62 Q 1011.70 600.35 1012.21 601.03 Q 1012.71 601.71 1013.39 602.31 Q 1014.07 602.90 1014.90 603.39 Q 1015.72 603.88 1016.67 604.25 Q 1017.61 604.61 1018.05 604.73 L 1018.49 604.84" />
+
+<text x="972.64" y="-1027.02" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<text x="860.77" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="952.96" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" d=" M 1018.39 514.04 Q 1017.61 514.17 1016.67 514.54 Q 1015.72 514.90 1014.90 515.39 Q 1014.07 515.88 1013.39 516.47 Q 1012.71 517.07 1012.21 517.75 Q 1011.70 518.43 1011.39 519.17 Q 1011.08 519.90 1010.98 520.67 Q 1010.87 521.44 1010.98 522.21 Q 1011.08 522.97 1011.39 523.71 Q 1011.70 524.45 1012.21 525.13 Q 1012.71 525.81 1013.39 526.40 Q 1014.07 527.00 1014.90 527.49 Q 1015.72 527.98 1016.67 528.34 Q 1017.61 528.71 1018.40 528.87 L 1019.19 529.04" />
+<text x="846.43" y="-1027.02" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<text x="734.64" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="826.86" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" d=" M 1018.39 441.75 Q 1017.61 441.88 1016.67 442.24 Q 1015.72 442.61 1014.90 443.10 Q 1014.07 443.59 1013.39 444.18 Q 1012.71 444.78 1012.21 445.46 Q 1011.70 446.14 1011.39 446.88 Q 1011.08 447.61 1010.98 448.38 Q 1010.87 449.15 1010.98 449.92 Q 1011.08 450.68 1011.39 451.42 Q 1011.70 452.16 1012.21 452.84 Q 1012.71 453.52 1013.39 454.11 Q 1014.07 454.71 1014.90 455.20 Q 1015.72 455.69 1016.67 456.05 Q 1017.61 456.41 1018.40 456.58 L 1019.19 456.75" />
+<text x="726.11" y="-1027.02" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<text x="539.24" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="631.47" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector47($j,$j2,$j3,$j4); ?>" stroke-width="2" d=" M 1018.39 329.70 Q 1017.61 329.83 1016.67 330.20 Q 1015.72 330.56 1014.90 331.05 Q 1014.07 331.54 1013.39 332.13 Q 1012.71 332.73 1012.21 333.41 Q 1011.70 334.09 1011.39 334.83 Q 1011.08 335.56 1010.98 336.33 Q 1010.87 337.10 1010.98 337.87 Q 1011.08 338.63 1011.39 339.37 Q 1011.70 340.11 1012.21 340.79 Q 1012.71 341.47 1013.39 342.06 Q 1014.07 342.66 1014.90 343.15 Q 1015.72 343.64 1016.67 344.00 Q 1017.61 344.36 1018.05 344.48 L 1018.49 344.60" />
+<text x="539.90" y="-1072.76" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<polyline points="1018.56 263.62 1018.56 329.88" fill="none" stroke="<?php echo sector47($j,$j2,$j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.56 345.33 1018.56 385.93" fill="none" stroke="<?php echo sector47($j,$j2,$j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.56 395.53 1018.56 440.93" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.99 457.38 1018.56 514.22" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.99 528.68 1018.56 590.12" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.56 604.58 1018.56 662.41" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.56 676.87 1018.56 738.32" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.56 752.77 1018.56 810.60" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.56 825.06 1018.56 865.97" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polyline points="1018.56 865.97 1205.25 865.97" fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<polygon points="1184.85 871.37 1205.25 865.97 1184.85 860.57" fill="<?php echo sector38($j3,$j4); ?>" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" />
+<text x="1118.91" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="1211.16" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" d=" M 1018.39 662.23 Q 1017.61 662.37 1016.67 662.73 Q 1015.72 663.09 1014.90 663.58 Q 1014.07 664.07 1013.39 664.67 Q 1012.71 665.26 1012.21 665.94 Q 1011.70 666.62 1011.39 667.36 Q 1011.08 668.10 1010.98 668.87 Q 1010.87 669.63 1010.98 670.40 Q 1011.08 671.17 1011.39 671.91 Q 1011.70 672.64 1012.21 673.32 Q 1012.71 674.00 1013.39 674.60 Q 1014.07 675.19 1014.90 675.68 Q 1015.72 676.17 1016.67 676.54 Q 1017.61 676.90 1018.05 677.02 L 1018.49 677.13" />
+<text x="1093.05" y="-1027.02" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<text x="1251.29" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="1343.70" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" d=" M 1018.39 738.14 Q 1017.61 738.27 1016.67 738.64 Q 1015.72 739.00 1014.90 739.49 Q 1014.07 739.98 1013.39 740.57 Q 1012.71 741.17 1012.21 741.85 Q 1011.70 742.53 1011.39 743.27 Q 1011.08 744.00 1010.98 744.77 Q 1010.87 745.54 1010.98 746.30 Q 1011.08 747.07 1011.39 747.81 Q 1011.70 748.55 1012.21 749.23 Q 1012.71 749.91 1013.39 750.50 Q 1014.07 751.10 1014.90 751.59 Q 1015.72 752.08 1016.67 752.44 Q 1017.61 752.80 1018.05 752.92 L 1018.49 753.04" />
+<text x="1219.46" y="-1027.02" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<text x="1377.49" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="1467.90" y="-969.43" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" d=" M 1018.39 810.42 Q 1017.61 810.56 1016.67 810.92 Q 1015.72 811.28 1014.90 811.77 Q 1014.07 812.26 1013.39 812.86 Q 1012.71 813.46 1012.21 814.14 Q 1011.70 814.81 1011.39 815.55 Q 1011.08 816.29 1010.98 817.06 Q 1010.87 817.83 1010.98 818.59 Q 1011.08 819.36 1011.39 820.10 Q 1011.70 820.84 1012.21 821.51 Q 1012.71 822.19 1013.39 822.79 Q 1014.07 823.39 1014.90 823.88 Q 1015.72 824.37 1016.67 824.73 Q 1017.61 825.09 1018.05 825.21 L 1018.49 825.33" />
+<text x="1340.33" y="-1027.02" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<polyline points="1018.56 391.52 874.00 391.52" fill="none" stroke="<?php echo sector48($j4,$j3); ?>" stroke-width="2" />
+<text x="637.01" y="-823.69" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="729.22" y="-823.69" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+
+<text x="633.17" y="-927.02" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<polyline points="873.89 465.25 872.89 580.24" fill="none" stroke="<?php echo sector48($j4,$j3); ?>" stroke-width="2" />
+<path fill="none" stroke="<?php echo sector38($j3,$j4); ?>" stroke-width="2" d=" M 1018.39 589.94 Q 1017.61 590.08 1016.67 590.44 Q 1015.72 590.80 1014.90 591.29 Q 1014.07 591.78 1013.39 592.38 Q 1012.71 592.97 1012.21 593.65 Q 1011.70 594.33 1011.39 595.07 Q 1011.08 595.81 1010.98 596.58 Q 1010.87 597.34 1010.98 598.11 Q 1011.08 598.88 1011.39 599.62 Q 1011.70 600.35 1012.21 601.03 Q 1012.71 601.71 1013.39 602.31 Q 1014.07 602.90 1014.90 603.39 Q 1015.72 603.88 1016.67 604.25 Q 1017.61 604.61 1018.05 604.73 L 1018.49 604.84" />
+<polyline points="163.27 514.22 163.27 525.06" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="163.27 756.39 163.27 770.85" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="163.27 744.06 163.27 756.39" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="163.27 249.27 163.27 264.82" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="163.27 264.82 163.27 277.96" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="872.89 580.24 964.29 580.24" fill="none" stroke="<?php echo sector48($j4,$j3); ?>" stroke-width="2" />
+<path fill="rgb(192,192,192)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 437 76 L 502 76 502 132 437 132 437 76" />
+<polyline points="536.80 83.80 536.80 132.13" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<polyline points="502.00 105.19 536.00 105.19" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="348.64" y="110.05" font-family ="Arial" font-size ="12pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.272,1.000)">РОУ3</text>
+<text x="410.63" y="128.13" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.244,1.000)">P</text>
+<polyline points="501.98 83.00 501.98 132.13" fill="none" stroke="rgb(0,0,0)" stroke-width="2" />
+<text x="410.63" y="100.97" font-family ="Arial" font-size ="15pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.244,1.000)">Т</text>
+<path fill="none" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 502 76 L 537 76 537 132 502 132 502 76" />
+<polyline points="1045.87 116.61 1095.05 116.61" fill="none" stroke="<?php echo sector2($a,$f,$b,$c); ?>" stroke-width="2" />
+<polyline points="1106.75 116.61 1140.13 116.61" fill="none" stroke="<?php echo sector3($a,$c,$b); ?>" stroke-width="2" />
+<polyline points="1045.50 191.91 1095.05 191.91" fill="none" stroke="<?php echo sector6($c,$d); ?>" stroke-width="2" />
+<polyline points="1106.85 191.91 1130.44 191.91" fill="none" stroke="<?php echo sector7($d,$f,$e); ?>" stroke-width="2" />
+<polyline points="1102.71 263.62 1130.44 263.62" fill="none" stroke="<?php echo sector28($j,$j1,$o,$i,$l); ?>" stroke-width="2" />
+<polyline points="1030.22 336.82 1003.69 336.82" fill="none" stroke="<?php echo sector29($j,$j1,$o,$u,$r,$i,$l); ?>" stroke-width="2" />
+<polyline points="1043.05 450.06 1003.0 450.06" fill="none" stroke="<?php echo sector24($m,$n,$p,$k,$h); ?>" stroke-width="2" />
+<polyline points="1029.93 521.77 1003.20 521.77" fill="none" stroke="<?php echo sector14($x,$y,$z,$w,$t); ?>" stroke-width="2" />
+<polyline points="1528.19 668.77 1682.82 668.77" fill="none" stroke="<?php echo sector20($s,$z,$w,$t); ?>" stroke-width="2" />
+<polyline points="1337.26 310.23 1293.54 310.23" fill="none" stroke="<?php echo sector36($h,$k) ?>" stroke-width="2" />
+<polyline points="1377.26 310.23 1348.86 310.23" fill="none" stroke="<?php echo sector46($h,$k,$j1) ?>" stroke-width="2" />	
+<polyline points="1282.40 310.23 1209.59 310.23" fill="none" stroke="<?php echo sector22($g,$l,$k,$n,$h); ?>" stroke-width="2" />
+<polyline points="1305.34 332.02 1290.74 314.83" fill="none" stroke="<?php echo sector32($r,$k,$h); ?>" stroke-width="2" />
+<polyline points="1379.26 306.03 1345.18 264.62" fill="none" stroke="<?php echo sector44($l,$i,$o,$j,$j1); ?>" stroke-width="2" />
+<polyline points="1339.26 306.03 1307.18 267.52" fill="none" stroke="<?php echo sector45($j1,$j,$l); ?>" stroke-width="2" />	
+<polyline points="1339.84 634.80 1339.73 817.55" fill="none" stroke="<?php echo sector9($a1,$b1,$c1); ?>" stroke-width="2" />
+<text x="902.12" y="858.28" font-family ="Arial" font-size ="10pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.187,1.000)">&#8544; очередь КТЦ</text>
+<circle cx="1019" cy="264" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1019" cy="391" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<text x="-1398.11" y="-481.23" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<text x="-1321.92" y="-481.23" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<path fill="none" stroke="<?php echo sector15($x,$y,$z); ?>" stroke-width="2" d=" M 1148.78 521.63 Q 1148.58 520.98 1148.14 520.20 Q 1147.70 519.42 1147.11 518.74 Q 1146.52 518.06 1145.80 517.49 Q 1145.07 516.93 1144.25 516.52 Q 1143.43 516.10 1142.54 515.84 Q 1141.64 515.59 1140.71 515.50 Q 1139.78 515.42 1138.86 515.50 Q 1137.93 515.59 1137.03 515.84 Q 1136.14 516.10 1135.32 516.52 Q 1134.49 516.93 1133.77 517.49 Q 1133.05 518.06 1132.46 518.74 Q 1131.87 519.42 1131.43 520.20 Q 1130.99 520.98 1130.89 521.35 L 1130.78 521.73" />
+<text x="-1307.17" y="-528.80" font-family ="ARIAL" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.884,1.000)"></text>
+<text x="-1398.11" y="-223.08" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<text x="-1321.92" y="-223.08" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<path fill="none" stroke="<?php echo sector28($j,$j1,$o,$i,$l); ?>" stroke-width="2" d=" M 1148.78 263.48 Q 1148.58 262.83 1148.14 262.05 Q 1147.70 261.27 1147.11 260.59 Q 1146.52 259.91 1145.80 259.34 Q 1145.07 258.78 1144.25 258.37 Q 1143.43 257.95 1142.54 257.69 Q 1141.64 257.44 1140.71 257.35 Q 1139.78 257.26 1138.86 257.35 Q 1137.93 257.44 1137.03 257.69 Q 1136.14 257.95 1135.32 258.37 Q 1134.49 258.78 1133.77 259.34 Q 1133.05 259.91 1132.46 260.59 Q 1131.87 261.27 1131.43 262.05 Q 1130.99 262.83 1130.89 263.20 L 1130.78 263.58" />
+<text x="-1307.17" y="-270.65" font-family ="ARIAL" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.884,1.000)"></text>
+<text x="-1398.11" y="-151.37" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<text x="-1321.92" y="-151.37" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<path fill="none" stroke="<?php echo sector7($d,$f,$e); ?>" stroke-width="2" d=" M 1148.78 191.77 Q 1148.58 191.12 1148.14 190.34 Q 1147.70 189.56 1147.11 188.88 Q 1146.52 188.20 1145.80 187.64 Q 1145.07 187.08 1144.25 186.66 Q 1143.43 186.24 1142.54 185.99 Q 1141.64 185.73 1140.71 185.64 Q 1139.78 185.56 1138.86 185.64 Q 1137.93 185.73 1137.03 185.99 Q 1136.14 186.24 1135.32 186.66 Q 1134.49 187.08 1133.77 187.64 Q 1133.05 188.20 1132.46 188.88 Q 1131.87 189.56 1131.43 190.34 Q 1130.99 191.12 1130.89 191.49 L 1130.78 191.87" />
+<text x="-1307.17" y="-198.94" font-family ="ARIAL" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.884,1.000)"></text>
+<circle cx="1314" cy="425" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1370" cy="472" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1453" cy="518" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1435" cy="407" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1470" cy="418" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1592" cy="411" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1626" cy="403" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1683" cy="414" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1752" cy="411" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1787" cy="439" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="1283" cy="547" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<text x="-1636.02" y="-703.53" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<text x="-1559.83" y="-703.53" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<path fill="none" stroke="<?php echo sector12($x1, $y1); ?>" stroke-width="2" d=" M 1348.50 743.92 Q 1348.30 743.28 1347.86 742.50 Q 1347.42 741.72 1346.82 741.03 Q 1346.23 740.35 1345.51 739.79 Q 1344.79 739.23 1343.96 738.81 Q 1343.14 738.40 1342.25 738.14 Q 1341.36 737.88 1340.43 737.80 Q 1339.50 737.71 1338.57 737.80 Q 1337.64 737.88 1336.75 738.14 Q 1335.85 738.40 1335.03 738.81 Q 1334.21 739.23 1333.48 739.79 Q 1332.76 740.35 1332.17 741.03 Q 1331.58 741.72 1331.14 742.50 Q 1330.70 743.28 1330.60 743.65 L 1330.50 744.02" />
+<text x="-1533.27" y="-751.09" font-family ="ARIAL" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.884,1.000)"></text>
+<text x="-1636.02" y="-628.23" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<text x="-1559.83" y="-628.23" font-family ="ARIAL" font-size ="17pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.839,1.000)"></text>
+<path fill="none" stroke="<?php echo sector18($s,$z,$w,$t); ?>" stroke-width="2" d=" M 1348.50 668.63 Q 1348.30 667.98 1347.86 667.20 Q 1347.42 666.42 1346.82 665.74 Q 1346.23 665.06 1345.51 664.50 Q 1344.79 663.94 1343.96 663.52 Q 1343.14 663.10 1342.25 662.85 Q 1341.36 662.59 1340.43 662.50 Q 1339.50 662.42 1338.57 662.50 Q 1337.64 662.59 1336.75 662.85 Q 1335.85 663.10 1335.03 663.52 Q 1334.21 663.94 1333.48 664.50 Q 1332.76 665.06 1332.17 665.74 Q 1331.58 666.42 1331.14 667.20 Q 1330.70 667.98 1330.60 668.36 L 1330.50 668.73" />
+<text x="-1533.27" y="-675.80" font-family ="ARIAL" font-size ="19pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-180.000) scale(0.884,1.000)"></text>
+<text x="-1145.11" y="1571.32" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-90.000) scale(0.574,1.000)"></text>
+<text x="-1053.01" y="1571.32" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-90.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector19($s,$z,$w,$t); ?>" stroke-width="2" d=" M 1522.36 636.44 Q 1523.14 636.31 1524.08 635.95 Q 1525.03 635.58 1525.85 635.10 Q 1526.68 634.61 1527.36 634.01 Q 1528.04 633.41 1528.54 632.74 Q 1529.05 632.06 1529.36 631.32 Q 1529.67 630.58 1529.77 629.81 Q 1529.88 629.04 1529.77 628.28 Q 1529.67 627.51 1529.36 626.77 Q 1529.05 626.04 1528.54 625.36 Q 1528.04 624.68 1527.36 624.08 Q 1526.68 623.48 1525.85 623.00 Q 1525.03 622.51 1524.08 622.14 Q 1523.14 621.78 1522.70 621.66 L 1522.26 621.54" />
+<text x="-1067.80" y="1513.73" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-90.000) scale(0.601,1.000)"></text>
+<text x="-1145.11" y="1731.96" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-90.000) scale(0.574,1.000)"></text>
+<text x="-1053.01" y="1731.96" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-90.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector42($v); ?>" stroke-width="2" d=" M 1683.00 636.44 Q 1683.78 636.31 1684.72 635.95 Q 1685.66 635.58 1686.49 635.10 Q 1687.32 634.61 1688.00 634.01 Q 1688.68 633.41 1689.18 632.74 Q 1689.68 632.06 1689.99 631.32 Q 1690.31 630.58 1690.41 629.81 Q 1690.51 629.04 1690.41 628.28 Q 1690.31 627.51 1689.99 626.77 Q 1689.68 626.04 1689.18 625.36 Q 1688.68 624.68 1688.00 624.08 Q 1687.32 623.48 1686.49 623.00 Q 1685.66 622.51 1684.72 622.14 Q 1683.78 621.78 1683.34 621.66 L 1682.90 621.54" />
+<text x="-1067.80" y="1674.37" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-90.000) scale(0.601,1.000)"></text>
+<text x="774.23" y="-1090.99" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<text x="866.43" y="-1090.99" font-family ="ARIAL" font-size ="20pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.574,1.000)"></text>
+<path fill="none" stroke="<?php echo sector3($a,$c,$b); ?>" stroke-width="2" d=" M 1139.95 464.45 Q 1139.17 464.59 1138.23 464.95 Q 1137.29 465.31 1136.46 465.80 Q 1135.63 466.29 1134.95 466.89 Q 1134.28 467.48 1133.77 468.16 Q 1133.27 468.84 1132.96 469.58 Q 1132.65 470.32 1132.54 471.09 Q 1132.44 471.85 1132.54 472.62 Q 1132.65 473.39 1132.96 474.13 Q 1133.27 474.86 1133.77 475.54 Q 1134.28 476.22 1134.95 476.82 Q 1135.63 477.41 1136.46 477.90 Q 1137.29 478.39 1138.23 478.76 Q 1139.17 479.12 1139.96 479.29 L 1140.75 479.45" />
+<text x="763.89" y="-1148.58" font-family ="ARIAL" font-size ="24pt" font-weight="bold" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(-270.000) scale(0.601,1.000)"></text>
+<path fill="none" stroke="<?php echo sector7($d,$f,$e); ?>" stroke-width="2" d=" M 1464.24 315.71 Q 1464.73 315.23 1465.28 314.50 Q 1465.83 313.77 1466.21 312.99 Q 1466.58 312.20 1466.75 311.40 Q 1466.93 310.59 1466.90 309.80 Q 1466.88 309.00 1466.65 308.24 Q 1466.43 307.49 1466.01 306.79 Q 1465.59 306.10 1465.00 305.51 Q 1464.40 304.91 1463.66 304.43 Q 1462.91 303.95 1462.04 303.61 Q 1461.17 303.27 1460.20 303.07 Q 1459.24 302.88 1458.23 302.84 Q 1457.21 302.80 1456.18 302.92 Q 1455.15 303.04 1454.14 303.31 Q 1453.13 303.58 1453.08 303.60 L 1453.04 303.61" />
+<path fill="none" stroke="<?php echo sector21($g,$h,$k,$n,$l) ?>" stroke-width="2" d=" M 1106.67 467.85 Q 1105.90 467.63 1104.88 467.50 Q 1103.85 467.37 1102.83 467.38 Q 1101.82 467.39 1100.85 467.53 Q 1099.88 467.67 1098.99 467.95 Q 1098.11 468.22 1097.34 468.61 Q 1096.57 469.00 1095.95 469.50 Q 1095.33 470.00 1094.89 470.58 Q 1094.44 471.17 1094.18 471.81 Q 1093.92 472.46 1093.87 473.14 Q 1093.81 473.83 1093.95 474.52 Q 1094.09 475.22 1094.43 475.90 Q 1094.77 476.58 1095.29 477.22 Q 1095.81 477.86 1096.09 478.10 L 1096.37 478.35" />
+<path fill="none" stroke="<?php echo sector22($g,$l,$k,$n,$h); ?>" stroke-width="2" d=" M 1145.20 410.24 Q 1144.38 410.11 1143.34 410.05 Q 1142.31 409.98 1141.30 410.05 Q 1140.28 410.12 1139.33 410.33 Q 1138.39 410.53 1137.54 410.86 Q 1136.69 411.19 1135.97 411.63 Q 1135.26 412.07 1134.70 412.61 Q 1134.15 413.15 1133.77 413.76 Q 1133.40 414.37 1133.22 415.03 Q 1133.04 415.70 1133.07 416.39 Q 1133.09 417.07 1133.32 417.76 Q 1133.55 418.45 1133.97 419.11 Q 1134.39 419.78 1134.99 420.38 Q 1135.58 420.99 1135.89 421.22 L 1136.20 421.44" />
+<path fill="none" stroke="<?php echo sector22($g,$l,$k,$n,$h); ?>" stroke-width="2" d=" M 1196.61 331.11 Q 1195.85 330.97 1194.80 330.97 Q 1193.76 330.97 1192.76 331.12 Q 1191.76 331.28 1190.84 331.58 Q 1189.92 331.88 1189.12 332.32 Q 1188.31 332.76 1187.65 333.32 Q 1187.00 333.88 1186.51 334.54 Q 1186.02 335.20 1185.72 335.93 Q 1185.43 336.66 1185.33 337.44 Q 1185.23 338.22 1185.34 339.01 Q 1185.45 339.80 1185.76 340.58 Q 1186.07 341.36 1186.54 342.03 L 1187.01 342.71" />
+<polyline points="1310.79 429.96 1287.74 468.98" fill="none" stroke="<?php echo sector15($x,$y,$z); ?>" stroke-width="2" />
+<path fill="none" stroke="<?php echo sector15($x,$y,$z); ?>" stroke-width="2" d=" M 1288.47 467.61 Q 1287.65 467.48 1286.62 467.41 Q 1285.58 467.35 1284.57 467.42 Q 1283.55 467.49 1282.61 467.69 Q 1281.66 467.90 1280.81 468.23 Q 1279.96 468.55 1279.25 469.00 Q 1278.53 469.44 1277.97 469.98 Q 1277.42 470.51 1277.05 471.12 Q 1276.67 471.74 1276.49 472.40 Q 1276.32 473.06 1276.34 473.75 Q 1276.37 474.44 1276.59 475.13 Q 1276.82 475.82 1277.24 476.48 Q 1277.66 477.14 1278.26 477.75 Q 1278.86 478.36 1279.16 478.59 L 1279.47 478.81" />
+<path fill="none" stroke="<?php echo sector16($x,$y,$z,$w,$t,$s); ?>" stroke-width="2" d=" M 1053.38 552.29 Q 1054.49 551.51 1055.14 550.84 Q 1055.80 550.18 1056.28 549.44 Q 1056.76 548.70 1057.06 547.92 Q 1057.35 547.14 1057.45 546.34 Q 1057.54 545.55 1057.43 544.77 Q 1057.31 544.00 1057.00 543.27 Q 1056.69 542.54 1056.18 541.89 Q 1055.68 541.24 1055.01 540.69 Q 1054.34 540.14 1053.53 539.71 Q 1052.71 539.28 1051.79 538.99 Q 1050.86 538.70 1049.86 538.56 Q 1048.86 538.42 1047.81 538.44 Q 1046.77 538.45 1045.82 538.62 L 1044.88 538.79" />
+<circle cx="897" cy="439" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="962" cy="439" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="818.5" cy="316" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="953.5" cy="316" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="962" cy="580" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="832" cy="718" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="832" cy="788" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="897" cy="788" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="897" cy="718" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="818" cy="128" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="953" cy="128" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="962" cy="632" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+<circle cx="962" cy="744" r="5" fill="rgb(0,0,0)" stroke="none" stroke-width="2" />
+
+<path fill="none" stroke="<?php echo sector48($j4,$j3); ?>" stroke-width="2" d=" M 873.49 451.67 Q 873.69 452.81 873.74 452.17 Q 872.79 452.52 871.96 453.00 Q 871.13 453.47 870.45 454.05 Q 869.76 454.63 869.26 455.29 Q 868.75 455.94 868.44 456.66 Q 868.13 457.38 868.02 458.12 Q 867.92 458.87 868.02 459.61 Q 868.13 460.36 868.44 461.07 Q 868.75 461.79 869.26 462.45 Q 869.76 463.11 870.45 463.68 Q 871.13 464.26 871.96 464.74 Q 872.79 465.21 873.74 465.56 Q 873.69 465.92 873.44 466.09 L 873.19 464.27" />
+<polyline points="873.65 392.01 873.65 452.63" fill="none" stroke="<?php echo sector48($j4,$j3); ?>" stroke-width="2" />
+
+
+
+
+
+</svg>
+
+
+
+
