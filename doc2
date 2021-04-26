@@ -1,0 +1,103 @@
+<?php
+
+require_once("connect.php");
+
+$s3=$_GET['d'];
+
+
+try {
+    $sth = $dbh->prepare("SELECT * from `DBAVl_meta1min_<GRP>` WHERE `TM` BETWEEN UNIX_TIMESTAMP(:s3) AND (UNIX_TIMESTAMP(:s3)+86400) order by `TM`");
+    $sth->execute(array(':s3' => $s3)); 
+}
+catch (PDOException $e) {
+    echo $e->getMessage();
+}
+
+
+while($row = $sth->fetch(PDO::FETCH_ASSOC))
+{
+	$i= intval($row['TM'])*1000;
+	$data1[] = array ($i, intval($row['T06701_temp']));
+  $data2[] = array ($i, intval($row['T06702_temp']));
+  $data3[] = array ($i, intval($row['T06703_temp']));
+  $data4[] = array ($i, intval($row['T06704_temp']));
+  $data5[] = array ($i, intval($row['T06705_temp']));
+  $data6[] = array ($i, intval($row['T06706_temp']));
+  $data7[] = array ($i, intval($row['T06707_temp']));
+  $data8[] = array ($i, intval($row['T06708_temp']));
+  $data9[] = array ($i, intval($row['T06709_temp']));
+  $data10[] = array ($i, intval($row['T06710_temp']));
+  $data11[] = array ($i, intval($row['T06711_temp']));
+  $data12[] = array ($i, intval($row['T06712_temp']));
+	//echo $data1[] = $row['T06701_temp'];
+}
+
+
+
+
+$con = mysqli_set_charset($con1,'utf8');
+
+$result = mysqli_query($con1,"select * from met1 where Примечание='T06701' or Примечание='T06702' or Примечание='T06703' or Примечание='T06704' or Примечание='T06705' or Примечание='T06706' or Примечание='T06707' or Примечание='T06708' or Примечание='T06709' or Примечание='T06710' or Примечание='T06711' or Примечание='T06712' order by id", $con);
+
+
+while($row = mysqli_fetch_array($result))
+{
+  $names[] = $row['Наименование'] . "=0000.0";
+}
+
+//массив с настройками графика
+$graph = array(
+    array('color'=>'#0000FF',
+          'data'=>$data1,
+          'label'=>$names[0],
+              'shadowSize'=> 0),
+    array('color'=>'#FF0040',
+          'data'=>$data2,
+          'label'=>$names[1],
+              'shadowSize'=> 0),
+    array('color'=>'#00FF00',
+          'data'=>$data3,
+          'label'=>$names[2],
+              'shadowSize'=> 0),
+    array('color'=>'#FF00FF',
+          'data'=>$data4,
+          'label'=>$names[3],
+              'shadowSize'=> 0),
+    array('color'=>'#FFD700',
+          'data'=>$data5,
+          'label'=>$names[4],
+              'shadowSize'=> 0),
+    array('color'=>'#00FFFF',
+          'data'=>$data6,
+          'label'=>$names[5],
+          'shadowSize'=> 0),
+    array('color'=>'#000000',
+          'data'=>$data7,
+          'label'=>$names[6],
+      'shadowSize'=> 0),
+    array('color'=>'#808080',
+          'data'=>$data8,
+          'label'=>$names[7],
+      'shadowSize'=> 0),
+    array('color'=>'#008000',
+          'data'=>$data9,
+          'label'=>$names[8],
+      'shadowSize'=> 0),
+    array('color'=>'#940003',
+          'data'=>$data10,
+          'label'=>$names[9],
+       'shadowSize'=> 0),
+    array('color'=>'#8080FF',
+          'data'=>$data11,
+          'label'=>$names[10],
+       'shadowSize'=> 0),
+    array('color'=>'#FF5F41',
+          'data'=>$data12,
+          'label'=>$names[11],
+       'shadowSize'=> 0)
+    
+);
+echo json_encode($graph);
+
+
+
