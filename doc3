@@ -22,11 +22,9 @@ require_once("connect.php");
 //SELECT type,date,sample,Wr AS ad from seventh_block WHERE date>=CURDATE() AND Wr IS NOT NULL Having type ='A' ORDER BY ad ASC
 
 
-$conn = mysqli_connect("sltes-ctai-sql-1","root", "vortex506", "control-fueldb");
+
 $con = mysqli_set_charset($conn,'utf8');
-if (!$conn) {
-      die("Ошибка в подключении: " . mysqli_connect_error());
-}
+
 
  $result  = $conn->query("SELECT * FROM `bsu` order by `created_at` DESC limit 1");
 
@@ -58,10 +56,7 @@ if (!$conn) {
  			$smes6=$row['smes6'];
  			}                
 
-$connect = mysqli_connect("sltes-ctai-sql-1","root", "vortex506", "openscada");
-if (!$connect) {
-      die("Ошибка в подключении: " . mysqli_connect_error());
-}
+
 
  $result  = mysqli_query($connect,"SELECT * FROM `DBAVl_ppc_<GRP>` order by `TM` DESC limit 1");
 
